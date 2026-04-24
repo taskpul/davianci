@@ -12,3 +12,255 @@ Text Domain: davinciwoo
 /***************
 All custom CSS should be added to the style.css of a Child Theme.
 ***************/
+
+/* Single product main section screenshot match */
+.single-product .product-main--matchshot {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding-top: 8px;
+}
+.single-product .product-main--matchshot .matchshot-breadcrumb {
+    margin: 0 0 16px;
+    color: #8a93a0;
+    font-size: 18px;
+}
+.single-product .product-main--matchshot .matchshot-breadcrumb a {
+    color: #8a93a0;
+}
+.single-product .product-main--matchshot .matchshot-breadcrumb span {
+    margin: 0 8px;
+}
+.single-product .product-main--matchshot .product-gallery-inner {
+    opacity: 1 !important;
+}
+.single-product .product-main--matchshot .product-gallery .row.no-gutters {
+    display: flex;
+    flex-wrap: nowrap;
+}
+.single-product .product-main--matchshot .product-thumbnails-wrap {
+    order: 1;
+    flex: 0 0 74px;
+    max-width: 74px;
+    margin-right: 16px;
+}
+.single-product .product-main--matchshot .product-gallery .col-sm-10 {
+    order: 2;
+    max-width: calc(100% - 90px);
+    flex: 0 0 calc(100% - 90px);
+}
+.single-product .product-main--matchshot .product-thumbnails .swiper-slide {
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+.single-product .product-main--matchshot .product-thumbnails .swiper-slide.is-nav-selected {
+    border-color: #666;
+}
+.single-product .product-main--matchshot .product-images {
+    background: #fff;
+}
+.single-product .product-main--matchshot .product-main-slider .swiper-prev,
+.single-product .product-main--matchshot .product-main-slider .swiper-next {
+    width: 54px;
+    height: 72px;
+    top: 50%;
+    margin-top: -36px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #d8d8d8;
+}
+.single-product .product-main--matchshot .product-summary {
+    padding-left: 36px;
+}
+.single-product .product-main--matchshot .product-summary .product_title {
+    font-size: 48px;
+    line-height: 1.2;
+    color: #28384b;
+    font-weight: 700;
+    margin-bottom: 14px;
+}
+.single-product .product-main--matchshot .woocommerce-product-rating .star-rating:before,
+.single-product .product-main--matchshot .woocommerce-product-rating .star-rating span:before {
+    color: #ff9f2a;
+}
+.single-product .product-main--matchshot .woocommerce-product-rating .woocommerce-review-link {
+    color: #1f5f9c;
+    margin-left: 10px;
+}
+.single-product .product-main--matchshot .product-summary .price {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 20px 0 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #e5e5e5;
+}
+.single-product .product-main--matchshot .product-summary .price .woocommerce-Price-amount {
+    font-size: 50px;
+    font-weight: 700;
+    color: #29384c;
+}
+.single-product .product-main--matchshot .product-summary del .woocommerce-Price-amount {
+    font-size: 37px;
+    color: #8f949c;
+    font-weight: 400;
+}
+.single-product .product-main--matchshot .product-summary .woocommerce-price-suffix {
+    display: inline-block;
+    margin-left: 12px;
+    background: #178fd8;
+    color: #fff;
+    padding: 8px 12px;
+    font-size: 16px;
+}
+.single-product .product-main--matchshot .variations td.label label {
+    font-size: 32px;
+    font-weight: 700;
+    color: #28384b;
+    margin-right: 6px;
+}
+.single-product .product-main--matchshot .quantity-row-wrap {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+}
+.single-product .product-main--matchshot .quantity-row-wrap .quantity-label {
+    font-size: 30px;
+    color: #5a6068;
+    margin-right: 12px;
+}
+.single-product .product-main--matchshot .quantity-row-wrap .quantity label {
+    display: none;
+}
+.single-product .product-main--matchshot .quantity-row-wrap .quantity input {
+    text-align: center;
+}
+.single-product .product-main--matchshot .quantity-row-wrap .stock {
+    color: #19a534;
+    font-size: 42px;
+    margin-left: 14px;
+    text-transform: none;
+}
+.single-product .product-main--matchshot .product-benefits-row {
+    border-top: 1px solid #e5e5e5;
+    margin-top: 18px;
+    padding-top: 18px;
+    display: flex;
+    column-gap: 24px;
+    color: #32475d;
+}
+.single-product .product-main--matchshot .product-benefits-row i {
+    color: #8d939b;
+    margin-right: 8px;
+}
+.single-product .product-main--matchshot .single_add_to_cart_button {
+    width: 100%;
+    text-transform: uppercase;
+    background: #28be2f;
+    border-color: #28be2f;
+    min-height: 74px;
+    font-size: 42px;
+    font-weight: 700;
+    margin-top: 16px;
+}
+.single-product .product-main--matchshot .single_add_to_cart_button .icon-basket {
+    display: none;
+}
+.single-product .product-main--matchshot .single_add_to_cart_button-group .view-cart {
+    display: block !important;
+    text-align: center;
+    margin: 14px 0 10px;
+    font-size: 36px;
+    color: #1f4d74;
+}
+.single-product .product-main--matchshot .single_add_to_cart_button-group .view-cart i {
+    display: none;
+}
+.single-product .product-main--matchshot .safe-checkout-wrap {
+    text-align: center;
+    margin-top: 8px;
+}
+.single-product .product-main--matchshot .safe-checkout-title {
+    font-size: 34px;
+    color: #677180;
+}
+.single-product .product-main--matchshot .safe-checkout-icons {
+    margin-top: 8px;
+    padding: 14px 16px;
+    border: 1px solid #ddd;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.single-product .product-main--matchshot .safe-checkout-icons img {
+    height: 36px;
+    width: auto;
+}
+.single-product .buyer-protection-wrap--matchshot {
+    background: #efefef;
+    border: 0;
+    margin-top: 30px;
+}
+.single-product .buyer-protection-wrap--matchshot .protection-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+.single-product .buyer-protection-wrap--matchshot .protection-item i {
+    color: #6f7783;
+    margin-right: 12px;
+    font-size: 30px;
+    margin-top: 2px;
+}
+.single-product .buyer-protection-wrap--matchshot .protection-item h4 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    color: #28384b;
+    font-weight: 700;
+}
+.single-product .buyer-protection-wrap--matchshot .protection-item p {
+    margin: 0;
+    font-size: 14px;
+    color: #3a4654;
+    line-height: 1.4;
+}
+@media (max-width: 991.98px) {
+    .single-product .product-main--matchshot .product-summary {
+        padding-left: 15px;
+        margin-top: 20px;
+    }
+    .single-product .product-main--matchshot .product-summary .product_title {
+        font-size: 34px;
+    }
+    .single-product .product-main--matchshot .product-summary .price .woocommerce-Price-amount {
+        font-size: 36px;
+    }
+    .single-product .product-main--matchshot .single_add_to_cart_button {
+        font-size: 28px;
+        min-height: 58px;
+    }
+    .single-product .product-main--matchshot .quantity-row-wrap .stock,
+    .single-product .product-main--matchshot .single_add_to_cart_button-group .view-cart,
+    .single-product .product-main--matchshot .safe-checkout-title,
+    .single-product .product-main--matchshot .quantity-row-wrap .quantity-label,
+    .single-product .product-main--matchshot .variations td.label label {
+        font-size: 22px;
+    }
+}
+@media (max-width: 575.98px) {
+    .single-product .product-main--matchshot .product-gallery .row.no-gutters {
+        flex-wrap: wrap;
+    }
+    .single-product .product-main--matchshot .product-thumbnails-wrap,
+    .single-product .product-main--matchshot .product-gallery .col-sm-10 {
+        max-width: 100%;
+        flex: 0 0 100%;
+        margin-right: 0;
+    }
+    .single-product .product-main--matchshot .product-thumbnails-wrap {
+        order: 2;
+    }
+    .single-product .product-main--matchshot .product-gallery .col-sm-10 {
+        order: 1;
+    }
+}

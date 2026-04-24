@@ -4,8 +4,13 @@ $post_thumbnail_id = $product->get_image_id();
 $full_size = apply_filters( 'woocommerce_gallery_full_size', apply_filters( 'woocommerce_product_thumbnails_large_size', 'full' ) );
 $main_img = wp_get_attachment_image_src( $post_thumbnail_id, $full_size );
 ?>
-<div class="product-container">
-	<div class="product-main<?=adswth_option( 'add_to_cart_button_sticky' ) ? ' sticky-add-to-cart-button' : ''?>" data-main-img="<?php echo $main_img ? $main_img[0] : ''?>">
+<div class="product-container product-container--matchshot">
+	<div class="product-main product-main--matchshot<?=adswth_option( 'add_to_cart_button_sticky' ) ? ' sticky-add-to-cart-button' : ''?>" data-main-img="<?php echo $main_img ? $main_img[0] : ''?>">
+        <div class="matchshot-breadcrumb">
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'davinciwoo' ); ?></a>
+            <span>/</span>
+            <span><?php esc_html_e( 'Best Sellers', 'davinciwoo' ); ?></span>
+        </div>
 		<div class="row mb-0">
 			<div class="product-gallery col-12 col-lg-6">
                 <div class="product-gallery-inner direction-<?php echo adswth_option( 'product_image_style' ); ?> nav-position-<?php echo adswth_option( 'product_image_thumbnails_position' ); ?>" style="opacity: 0; transition: opacity .25s ease-in-out;">
