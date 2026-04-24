@@ -93,3 +93,29 @@ All custom CSS should be added to the style.css of a Child Theme.
 	margin-left: 0;
 	margin-right: 0;
 }
+
+/* Ensure single product add-to-cart CTA spans full form width for simple + variable products */
+.woocommerce.single-product div.product form.cart .single_add_to_cart_button-group,
+.woocommerce.single-product div.product form.cart .woocommerce-variation-add-to-cart,
+.woocommerce.single-product div.product form.cart .variations_button {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	width: 100%;
+	gap: 12px;
+}
+
+.woocommerce.single-product div.product form.cart .woocommerce-variation-add-to-cart .quantity,
+.woocommerce.single-product div.product form.cart .variations_button .quantity {
+	margin-right: 0;
+}
+
+.woocommerce.single-product div.product form.cart .single_add_to_cart_button-group .single_add_to_cart_button,
+.woocommerce.single-product div.product form.cart .woocommerce-variation-add-to-cart button.single_add_to_cart_button,
+.woocommerce.single-product div.product form.cart .variations_button button.single_add_to_cart_button {
+	float: none;
+	display: block;
+	width: 100% !important;
+	max-width: none !important;
+	min-width: 0 !important;
+}
