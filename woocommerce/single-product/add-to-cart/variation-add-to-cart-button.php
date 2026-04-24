@@ -43,6 +43,27 @@ $link_view_cart = adswth_option( 'use_minicart' ) ? '#' : wc_get_cart_url();
             <a href="<?php echo $link_view_cart ?>" class="view-cart <?php echo $class_view_cart ?>" <?php if ( WC()->cart->is_empty() ) { echo 'style="display:none;"'; } ?>><?php echo __('View cart', 'davinciwoo'); ?>  <i class="icon-right-big"></i></a>
         </div>
     </div>
+    <div class="single-product-payment-methods" aria-label="<?php echo esc_attr__( 'Guaranteed Safe Checkout', 'davinciwoo' ); ?>">
+        <div class="single-product-payment-methods__title"><?php echo esc_html__( 'Guaranteed Safe Checkout', 'davinciwoo' ); ?></div>
+        <div class="single-product-payment-methods__icons">
+            <?php
+            $payment_methods = array( 'visa', 'mastercard', 'maestro', 'american_express', 'discover', 'paypal' );
+
+            foreach ( $payment_methods as $payment_method ) :
+                $icon_path = get_template_directory() . '/assets/images/payment_methods/' . $payment_method . '.svg';
+
+                if ( ! file_exists( $icon_path ) ) {
+                    continue;
+                }
+                ?>
+                <img
+                        src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/payment_methods/' . $payment_method . '.svg' ); ?>"
+                        alt="<?php echo esc_attr( ucwords( str_replace( '_', ' ', $payment_method ) ) ); ?>"
+                        loading="lazy"
+                />
+            <?php endforeach; ?>
+        </div>
+    </div>
     
 	<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
 
