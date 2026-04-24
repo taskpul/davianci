@@ -15,7 +15,7 @@
  * @see 	https://docs.woocommerce.com/document/template-structure/
  * @author  WooThemes
  * @package WooCommerce/Templates
- * @version 10.5.2
+ * @version 8.5.0
  */
 
 defined( 'ABSPATH' ) || exit;
