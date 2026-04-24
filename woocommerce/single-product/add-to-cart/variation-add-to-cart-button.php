@@ -19,28 +19,49 @@ $link_view_cart = adswth_option( 'use_minicart' ) ? '#' : wc_get_cart_url();
 
     <?php do_action( 'woocommerce_after_add_to_cart_quantity' ); ?>
 
-    <div class="woocommerce-add-to-cart-group">
+    <div class="woocommerce-add-to-cart-group woocommerce-add-to-cart-group--matchshot">
         <?php
         do_action( 'woocommerce_before_add_to_cart_quantity' );
-
-        woocommerce_quantity_input( array(
-            'min_value'   => apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product ),
-            'max_value'   => apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
-            'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(), // WPCS: CSRF ok, input var ok.
-        ) );
-
-        //do_action( 'woocommerce_after_add_to_cart_quantity' );
         ?>
+        <div class="quantity-row-wrap">
+            <div class="quantity-label"><?php esc_html_e( 'Quantity:', 'davinciwoo' ); ?></div>
+            <?php
+            woocommerce_quantity_input( array(
+                'min_value'   => apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product ),
+                'max_value'   => apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
+                'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(), // WPCS: CSRF ok, input var ok.
+            ) );
+            ?>
+            <?php if ( $product->is_in_stock() ) : ?>
+                <div class="stock in-stock"><?php esc_html_e( 'In stock', 'woocommerce' ); ?></div>
+            <?php endif; ?>
+        </div>
+
+        <div class="product-benefits-row">
+            <span><i class="icon-truck"></i><?php esc_html_e( 'Free shipping worldwide', 'davinciwoo' ); ?></span>
+            <span><i class="icon-arrows-cw"></i><?php esc_html_e( '60 Day Returns', 'davinciwoo' ); ?></span>
+        </div>
+
         <div class="single_add_to_cart_button-group">
             <button
                     data-button-text="<?php echo __( 'View cart', 'davinciwoo' )?>"
                     data-after-title-text="<?php echo __( 'has been added to your cart', 'davinciwoo' )?>"
                     type="submit"
                     class="single_add_to_cart_button btn btn-primary btn-big alt <?=(adswth_option( 'show_side_shoppingcart_after_product_add' ) && adswth_option( 'use_minicart' )) ? 'openAfterAdd' : ''?>">
-                <i class="icon-basket"></i>
                 <?php echo esc_html( $product->single_add_to_cart_text() ); ?>
             </button>
-            <a href="<?php echo $link_view_cart ?>" class="view-cart <?php echo $class_view_cart ?>" <?php if ( WC()->cart->is_empty() ) { echo 'style="display:none;"'; } ?>><?php echo __('View cart', 'davinciwoo'); ?>  <i class="icon-right-big"></i></a>
+            <a href="<?php echo $link_view_cart ?>" class="view-cart <?php echo $class_view_cart ?>" <?php if ( WC()->cart->is_empty() ) { echo 'style="display:none;"'; } ?>><?php echo __('View Cart', 'davinciwoo'); ?></a>
+            <div class="safe-checkout-wrap">
+                <span class="safe-checkout-title"><?php esc_html_e( 'Guaranteed Safe Checkout', 'davinciwoo' ); ?></span>
+                <div class="safe-checkout-icons">
+                    <?php
+                    $icons = array( 'visa', 'mastercard', 'maestro', 'american_express', 'discover', 'paypal' );
+                    foreach ( $icons as $icon ) :
+                        ?>
+                        <img src="<?php echo esc_url( ADSW_THEME_URL . '/assets/images/payment_methods/' . $icon . '.svg' ); ?>" alt="<?php echo esc_attr( ucwords( str_replace( '_', ' ', $icon ) ) ); ?>">
+                    <?php endforeach; ?>
+                </div>
+            </div>
         </div>
     </div>
     
