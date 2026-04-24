@@ -10,6 +10,6 @@
 .woocommerce div.product form.cart .single_add_to_cart_button-group .single_add_to_cart_button{width:100%;min-width:0}
 .woocommerce div.product form.cart .single_add_to_cart_button-group .view-cart{margin-left:0;margin-top:10px;text-align:center}
 @media (max-width:575px){.woocommerce div.product form.cart .single-product-trust-indicators{justify-content:space-evenly;gap:10px;font-size:13px}.woocommerce div.product form.cart .single-product-trust-indicators span+span:before{margin-right:10px}}
-.woocommerce div.product form.cart .woocommerce-add-to-cart-group{display:flex;width:100%}
+.woocommerce div.product form.cart .woocommerce-add-to-cart-group{width:100%}
 .woocommerce div.product form.cart .single_add_to_cart_button-group{width:100%}
 .woocommerce div.product form.cart .single_add_to_cart_button-group .single_add_to_cart_button{display:block;width:100%}
