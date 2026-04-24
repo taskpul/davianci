@@ -101,7 +101,7 @@ if ( ! function_exists( 'adswth_get_product_discount_data' ) ) {
 
 if ( ! function_exists( 'adswth_single_product_price_row' ) ) {
 	/**
-	 * Render single product price with discount badge on the same line.
+	 * Render single product price row.
 	 */
 	function adswth_single_product_price_row() {
 		global $product;
@@ -110,27 +110,74 @@ if ( ! function_exists( 'adswth_single_product_price_row' ) ) {
 			return;
 		}
 
-		$discount_data = adswth_get_product_discount_data( $product );
+		$is_variable = $product->is_type( 'variable' );
+		$row_classes = 'adswth-price-row';
+		$price_html  = $product->get_price_html();
 
-		echo '<div class="adswth-price-row">';
-		echo '<p class="price adswth-product-price">' . wp_kses_post( $product->get_price_html() ) . '</p>';
-
-		if ( ! empty( $discount_data['percentage'] ) && ! empty( $discount_data['amount'] ) ) {
-			$badge_text = sprintf(
-				/* translators: 1: percentage saved, 2: amount saved */
-				esc_html__( 'You save %1$s%% (%2$s)', 'davinciwoo' ),
-				(int) $discount_data['percentage'],
-				wp_strip_all_tags( wc_price( $discount_data['amount'] ) )
-			);
-
-			echo '<span class="adswth-price-discount-badge">' . esc_html( $badge_text ) . '</span>';
+		if ( $is_variable ) {
+			$row_classes .= ' adswth-price-row--empty';
+			$price_html = '';
 		}
 
+		echo '<div class="' . esc_attr( $row_classes ) . '">';
+		echo '<p class="price adswth-product-price">' . wp_kses_post( $price_html ) . '</p>';
 		echo '</div>';
 	}
 }
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
 add_action( 'woocommerce_single_product_summary', 'adswth_single_product_price_row', 10 );
+
+if ( ! function_exists( 'adswth_single_product_variation_price_sync' ) ) {
+	/**
+	 * Sync the single product price row with the currently selected variation.
+	 */
+	function adswth_single_product_variation_price_sync() {
+		if ( ! is_product() ) {
+			return;
+		}
+
+		global $product;
+
+		if ( ! $product instanceof WC_Product || ! $product->is_type( 'variable' ) ) {
+			return;
+		}
+		?>
+		<script>
+			jQuery(function ($) {
+				var $form = $('.variations_form');
+				var $priceRow = $('.adswth-price-row').first();
+				var $price = $priceRow.find('.adswth-product-price');
+
+				if (!$form.length || !$price.length) {
+					return;
+				}
+
+				var setPrice = function (priceHtml) {
+					if (priceHtml) {
+						$price.html(priceHtml);
+						$priceRow.removeClass('adswth-price-row--empty');
+						return;
+					}
+
+					$price.empty();
+					$priceRow.addClass('adswth-price-row--empty');
+				};
+
+				$form.on('found_variation', function (event, variation) {
+					setPrice(variation && variation.price_html ? variation.price_html : '');
+				});
+
+				$form.on('reset_data hide_variation', function () {
+					setPrice('');
+				});
+
+				$form.trigger('check_variations');
+			});
+		</script>
+		<?php
+	}
+}
+add_action( 'wp_footer', 'adswth_single_product_variation_price_sync', 99 );
 
 function adswth_woocommerce_product_categories_widget_args( $args ) {
 
