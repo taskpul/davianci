@@ -41,6 +41,97 @@ function adswth_add_percentage_to_sale_badge( $html, $post, $product ) {
 }
 add_filter( 'woocommerce_sale_flash', 'adswth_add_percentage_to_sale_badge', 20, 3 );
 
+if ( ! function_exists( 'adswth_get_product_discount_data' ) ) {
+	/**
+	 * Build discount data for the single-product price badge.
+	 *
+	 * @param WC_Product $product Product instance.
+	 * @return array{
+	 *     percentage:int,
+	 *     amount:float
+	 * }|null
+	 */
+	function adswth_get_product_discount_data( $product ) {
+		if ( ! $product || ! $product->is_on_sale() ) {
+			return null;
+		}
+
+		$best_discount = null;
+
+		if ( $product->is_type( 'variable' ) ) {
+			$prices = $product->get_variation_prices();
+
+			if ( empty( $prices['regular_price'] ) || empty( $prices['sale_price'] ) ) {
+				return null;
+			}
+
+			foreach ( $prices['regular_price'] as $variation_id => $regular_price ) {
+				$regular_price = (float) $regular_price;
+				$sale_price    = isset( $prices['sale_price'][ $variation_id ] ) ? (float) $prices['sale_price'][ $variation_id ] : 0;
+
+				if ( $regular_price <= 0 || $sale_price <= 0 || $sale_price >= $regular_price ) {
+					continue;
+				}
+
+				$amount     = $regular_price - $sale_price;
+				$percentage = (int) round( 100 - ( $sale_price / $regular_price * 100 ) );
+
+				if ( null === $best_discount || $percentage > $best_discount['percentage'] ) {
+					$best_discount = [
+						'percentage' => $percentage,
+						'amount'     => $amount,
+					];
+				}
+			}
+		} else {
+			$regular_price = (float) $product->get_regular_price();
+			$sale_price    = (float) $product->get_sale_price();
+
+			if ( $regular_price > 0 && $sale_price > 0 && $sale_price < $regular_price ) {
+				$best_discount = [
+					'percentage' => (int) round( 100 - ( $sale_price / $regular_price * 100 ) ),
+					'amount'     => (float) ( $regular_price - $sale_price ),
+				];
+			}
+		}
+
+		return $best_discount;
+	}
+}
+
+if ( ! function_exists( 'adswth_single_product_price_row' ) ) {
+	/**
+	 * Render single product price with discount badge on the same line.
+	 */
+	function adswth_single_product_price_row() {
+		global $product;
+
+		if ( ! $product instanceof WC_Product ) {
+			return;
+		}
+
+		$discount_data = adswth_get_product_discount_data( $product );
+
+		echo '<div class="adswth-price-row">';
+		echo '<p class="price adswth-product-price">' . wp_kses_post( $product->get_price_html() ) . '</p>';
+
+		if ( ! empty( $discount_data['percentage'] ) && ! empty( $discount_data['amount'] ) ) {
+			$badge_text = sprintf(
+				/* translators: 1: percentage saved, 2: amount saved */
+				esc_html__( 'You save %1$s%% (%2$s)', 'davinciwoo' ),
+				(int) $discount_data['percentage'],
+				wp_strip_all_tags( wc_price( $discount_data['amount'] ) )
+			);
+
+			echo '<span class="adswth-price-discount-badge">' . esc_html( $badge_text ) . '</span>';
+		}
+
+		echo '</div>';
+	}
+}
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
+add_action( 'woocommerce_single_product_summary', 'adswth_single_product_price_row', 10 );
+
 function adswth_woocommerce_product_categories_widget_args( $args ) {
 
 	$args[ 'show_count' ] = adswth_option( 'menu_product_cat_show_count' );
