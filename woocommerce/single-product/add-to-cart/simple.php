@@ -40,12 +40,12 @@ if ( $product->is_in_stock() ) :
 
         <?php do_action( 'woocommerce_after_add_to_cart_quantity' ); ?>
 
-            <div class="woocommerce-add-to-cart-group">
-                <div class="single-product-trust-indicators" aria-label="<?php echo esc_attr__( 'Shipping and returns info', 'davinciwoo' ); ?>">
-                    <span><?php echo esc_html__( 'Free shipping worldwide', 'davinciwoo' ); ?></span>
-                    <span><?php echo esc_html__( '60 Day Returns', 'davinciwoo' ); ?></span>
-                </div>
+            <div class="single-product-trust-indicators" aria-label="<?php echo esc_attr__( 'Shipping and returns info', 'davinciwoo' ); ?>">
+                <span><?php echo esc_html__( 'Free shipping worldwide', 'davinciwoo' ); ?></span>
+                <span><?php echo esc_html__( '60 Day Returns', 'davinciwoo' ); ?></span>
+            </div>
 
+            <div class="woocommerce-add-to-cart-group">
                 <div class="single_add_to_cart_button-group">
                     <input type="hidden" name="quantity" value="1" />
                     <button
