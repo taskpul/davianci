@@ -65,3 +65,31 @@ All custom CSS should be added to the style.css of a Child Theme.
 .woocommerce div.product form.cart .single-product-payment-methods {
 	margin-top: 14px;
 }
+
+/* Single product add-to-cart layout hardening: keep CTA full-width on all breakpoints */
+.woocommerce div.product form.cart .woocommerce-add-to-cart-group,
+.woocommerce div.product form.cart .woocommerce-variation-add-to-cart,
+.woocommerce div.product form.cart .variations_button {
+	width: 100%;
+}
+
+.woocommerce div.product form.cart .woocommerce-add-to-cart-group .single_add_to_cart_button-group,
+.woocommerce div.product form.cart .woocommerce-variation-add-to-cart .single_add_to_cart_button-group,
+.woocommerce div.product form.cart .variations_button .single_add_to_cart_button-group {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	width: 100%;
+	padding-left: 0;
+}
+
+.woocommerce div.product form.cart .single_add_to_cart_button-group .single_add_to_cart_button,
+.woocommerce div.product form.cart button.single_add_to_cart_button {
+	display: block;
+	flex: 1 1 auto;
+	width: 100% !important;
+	max-width: 100% !important;
+	min-width: 0 !important;
+	margin-left: 0;
+	margin-right: 0;
+}
