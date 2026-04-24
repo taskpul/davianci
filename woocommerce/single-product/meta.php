@@ -21,20 +21,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $product;
+$product_categories = wc_get_product_category_list( $product->get_id(), ', ', '', '' );
+$show_product_sku   = wc_product_sku_enabled() && $product->get_sku() && adswth_option( 'product_page_meta_sku_show' );
+$show_category_meta = adswth_option( 'product_page_meta_category_show' ) && $product_categories && false === strpos( wp_strip_all_tags( $product_categories ), 'Uncategorized' );
 ?>
-<?php if( adswth_option( 'product_page_meta_sku_show' ) || adswth_option( 'product_page_meta_category_show' ) || adswth_option( 'product_page_meta_tag_show' ) ) : ?>
+<?php if( $show_product_sku || $show_category_meta || adswth_option( 'product_page_meta_tag_show' ) ) : ?>
 
 <div class="product_meta">
 
 	<?php do_action( 'woocommerce_product_meta_start' ); ?>
 
-	<?php if ( wc_product_sku_enabled() && ( $product->get_sku() || $product->is_type( 'variable' ) ) && adswth_option( 'product_page_meta_sku_show' ) ) : ?>
+	<?php if ( $show_product_sku ) : ?>
 
         <div class="sku_wrapper"><div><?php esc_html_e( 'SKU:', 'woocommerce' ); ?></div><div class="sku"><?php echo ( $sku = $product->get_sku() ) ? $sku : esc_html__( 'N/A', 'woocommerce' ); ?></div></div>
 
 	<?php endif; ?>
 
-    <?php if( adswth_option( 'product_page_meta_category_show' ) ) : ?>
+    <?php if( $show_category_meta ) : ?>
 
         <?php echo wc_get_product_category_list( $product->get_id(), ', ', '<div class="posted_in"><div>' . _n( 'Category:', 'Categories:', count( $product->get_category_ids() ), 'woocommerce' ) . '</div><div>', '</div></div>' ); ?>
 
@@ -51,4 +54,3 @@ global $product;
 </div>
 
 <?php endif; ?>
-
