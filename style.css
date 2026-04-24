@@ -12,3 +12,56 @@ Text Domain: davinciwoo
 /***************
 All custom CSS should be added to the style.css of a Child Theme.
 ***************/
+
+.woocommerce div.product form.cart .woocommerce-add-to-cart-group .single-product-trust-indicators {
+	display: flex;
+	align-items: center;
+	gap: 24px;
+	margin: 0 0 14px;
+	font-size: 24px;
+}
+
+.woocommerce div.product form.cart .woocommerce-add-to-cart-group .single-product-trust-indicators span {
+	display: inline-flex;
+	align-items: center;
+	font-size: 0.65em;
+	color: #3c5460;
+}
+
+.woocommerce div.product form.cart .woocommerce-add-to-cart-group .single-product-trust-indicators span:before {
+	content: "\2713";
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 16px;
+	height: 16px;
+	margin-right: 8px;
+	border: 1px solid #9caab3;
+	border-radius: 50%;
+	font-size: 10px;
+	line-height: 1;
+	color: #667784;
+}
+
+.woocommerce div.product form.cart .woocommerce-add-to-cart-group .single_add_to_cart_button-group {
+	flex-direction: column;
+	align-items: stretch;
+}
+
+.woocommerce div.product form.cart .woocommerce-add-to-cart-group .single_add_to_cart_button-group .single_add_to_cart_button {
+	width: 100%;
+	max-width: 100%;
+	min-width: 100%;
+	text-align: center;
+	background-color: #2cc132;
+	border-color: #2cc132;
+}
+
+.woocommerce div.product form.cart .woocommerce-add-to-cart-group .single_add_to_cart_button-group .view-cart {
+	margin-top: 12px;
+	text-align: center;
+}
+
+.woocommerce div.product form.cart .single-product-payment-methods {
+	margin-top: 14px;
+}
