@@ -21,6 +21,11 @@ All custom CSS should be added to the style.css of a Child Theme.
 	font-size: 24px;
 }
 
+.woocommerce div.product form.cart .woocommerce-add-to-cart-group {
+	display: block;
+	width: 100%;
+}
+
 .woocommerce div.product form.cart .woocommerce-add-to-cart-group .single-product-trust-indicators span {
 	display: inline-flex;
 	align-items: center;
@@ -44,6 +49,9 @@ All custom CSS should be added to the style.css of a Child Theme.
 }
 
 .woocommerce div.product form.cart .woocommerce-add-to-cart-group .single_add_to_cart_button-group {
+	display: flex;
+	width: 100%;
+	flex: 1 1 100%;
 	flex-direction: column;
 	align-items: stretch;
 }
