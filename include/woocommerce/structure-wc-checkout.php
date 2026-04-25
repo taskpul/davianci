@@ -40,14 +40,14 @@ function adswth_form_field_args( $args, $key, $value = null ) {
 
         case "billing_first_name" :
         case "billing_address_1" :
-            $args['class'][] = 'col-12 col-md-6';
+            $args['class'][] = 'col-6 col-md-6';
             $args['input_class'] = array('form-control', 'w-100');
             $args['label_class'] = array('control-label', 'w-100');
             break;
 
         case "billing_last_name" :
         case "billing_address_2" :
-            $args['class'][] = 'col-12 col-md-6';
+            $args['class'][] = 'col-6 col-md-6';
             $args['input_class'] = array('form-control', 'w-100');
             $args['label_class'] = array('control-label', 'w-100');
             break;
@@ -56,6 +56,11 @@ function adswth_form_field_args( $args, $key, $value = null ) {
         case "billing_postcode" :
         case "billing_phone" :
         case "billing_city" :
+            $args['class'][] = 'col-6 col-md-6';
+            $args['input_class'] = array('form-control', 'w-100');
+            $args['label_class'] = array('control-label', 'w-100');
+            break;
+
         case "shipping_postcode" :
         case "shipping_city" :
             $args['class'][] = 'col-12 col-md-6';
@@ -204,12 +209,12 @@ function adswth_checkout_fields_layout( $fields ) {
 		$fields['billing']['billing_phone']['priority'] = 31;
 	}
 
-	if ( isset( $fields['billing']['billing_city'] ) ) {
-		$fields['billing']['billing_city']['priority'] = 70;
+	if ( isset( $fields['billing']['billing_postcode'] ) ) {
+		$fields['billing']['billing_postcode']['priority'] = 70;
 	}
 
-	if ( isset( $fields['billing']['billing_postcode'] ) ) {
-		$fields['billing']['billing_postcode']['priority'] = 71;
+	if ( isset( $fields['billing']['billing_city'] ) ) {
+		$fields['billing']['billing_city']['priority'] = 71;
 	}
 
 	if ( isset( $fields['billing']['billing_state'] ) ) {
