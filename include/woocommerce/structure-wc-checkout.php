@@ -56,6 +56,7 @@ function adswth_form_field_args( $args, $key, $value = null ) {
         case "billing_postcode" :
         case "billing_phone" :
         case "billing_city" :
+        case "billing_email" :
             $args['class'][] = 'col-6 col-md-6';
             $args['input_class'] = array('form-control', 'w-100');
             $args['label_class'] = array('control-label', 'w-100');
@@ -70,7 +71,6 @@ function adswth_form_field_args( $args, $key, $value = null ) {
 
         case "billing_country" :
         case "billing_state" :
-        case "billing_email" :
         case "order_comments" :
             $args['class'][] = 'col-12';
             $args['input_class'] = array('form-control', 'w-100');
@@ -202,7 +202,11 @@ add_filter( 'woocommerce_form_field_args', 'adswth_form_field_args', 10, 3 );
 
 function adswth_checkout_fields_layout( $fields ) {
 	if ( isset( $fields['billing']['billing_company'] ) ) {
-		$fields['billing']['billing_company']['priority'] = 30;
+		unset( $fields['billing']['billing_company'] );
+	}
+
+	if ( isset( $fields['billing']['billing_email'] ) ) {
+		$fields['billing']['billing_email']['priority'] = 30;
 	}
 
 	if ( isset( $fields['billing']['billing_phone'] ) ) {
