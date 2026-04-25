@@ -142,16 +142,6 @@ defined( 'ABSPATH' ) || exit;
 			}
 		}
 
-		@media (max-width: 767px) {
-			.woocommerce-billing-fields .woocommerce-billing-fields__field-wrapper #billing_country_field,
-			.woocommerce-billing-fields .woocommerce-billing-fields__field-wrapper #billing_state_field,
-			.woocommerce-billing-fields .woocommerce-billing-fields__field-wrapper #billing_postcode_field {
-				flex: 0 0 100%;
-				max-width: 100%;
-				margin-right: 0;
-			}
-		}
-
 		@media (max-width: 360px) {
 			.woocommerce-billing-fields .checkout-form-field-half,
 			.woocommerce-billing-fields .checkout-form-field-third {
