@@ -211,6 +211,15 @@ function adswth_page_front_products_section( $section = '', $scheme = 'masonry',
 
 		$classes = [ 'product-box-row', 'row', 'mt-xs-px-15', 'mt-px-30' ];
 		$classes[] = 'product-box-row-' . $scheme;
+		$mobile_two_per_row = adswth_option( 'woo_product_cat_mob' ) === '2';
+		$front_product_item_classes = [ 'single-item', 'col-xl-3', 'col-lg-4', 'col-sm-6' ];
+
+		if ( $mobile_two_per_row ) {
+			$front_product_item_classes[] = 'col-6';
+			$front_product_item_classes[] = 'two-per-row';
+		}
+
+		$front_product_item_class = implode( ' ', $front_product_item_classes );
 		$slider = '';
 		$css = '';
 		if( $scheme == 'line' ) {
@@ -289,7 +298,7 @@ function adswth_page_front_products_section( $section = '', $scheme = 'masonry',
 
 	            $products->the_post();
 
-		        echo '<div class="single-item col-xl-3 col-lg-4 col-sm-6">';
+		        echo '<div class="' . esc_attr( $front_product_item_class ) . '">';
 
 		        wc_get_template_part( 'content', 'product' );
 
