@@ -10,19 +10,19 @@ if ( ! function_exists( 'adswth_contact_us_form_html' ) ) {
 			<?php wp_nonce_field( 'adswth_contact_us_submit', 'adswth_contact_us_nonce' ); ?>
 			<input type="hidden" name="action" value="adswth_contact_us_submit">
 
-			<?php if ( 'success' === $status ) : ?>
-				<div class="woocommerce-message mb-px-15"><?php esc_html_e( 'Thank you! Your message has been sent.', 'davinciwoo' ); ?></div>
-			<?php elseif ( 'error' === $status ) : ?>
-				<div class="woocommerce-error mb-px-15"><?php esc_html_e( 'Message was not sent. Please try again.', 'davinciwoo' ); ?></div>
-			<?php endif; ?>
+			<div class="row">
+				<div class="col-sm-6">
+					<p class="comment-form-author form-group">
+						<input id="adswth-contact-name" class="form-control" type="text" name="adswth_contact_name" placeholder="<?php esc_attr_e( '* Name', 'davinciwoo' ); ?>" required>
+					</p>
+				</div>
 
-			<p class="comment-form-author form-group">
-				<input id="adswth-contact-name" class="form-control" type="text" name="adswth_contact_name" placeholder="<?php esc_attr_e( '* Name', 'davinciwoo' ); ?>" required>
-			</p>
-
-			<p class="comment-form-email form-group">
-				<input id="adswth-contact-email" class="form-control" type="email" name="adswth_contact_email" placeholder="<?php esc_attr_e( '* Email', 'davinciwoo' ); ?>" required>
-			</p>
+				<div class="col-sm-6">
+					<p class="comment-form-email form-group">
+						<input id="adswth-contact-email" class="form-control" type="email" name="adswth_contact_email" placeholder="<?php esc_attr_e( '* Email', 'davinciwoo' ); ?>" required>
+					</p>
+				</div>
+			</div>
 
 			<p class="comment-form-comment form-group">
 				<textarea id="adswth-contact-message" class="form-control" name="adswth_contact_message" placeholder="<?php esc_attr_e( '* Message', 'davinciwoo' ); ?>" required></textarea>
@@ -30,6 +30,12 @@ if ( ! function_exists( 'adswth_contact_us_form_html' ) ) {
 
 			<p class="form-submit">
 				<button type="submit" class="btn btn-primary btn-big"><?php esc_html_e( 'Send Message', 'davinciwoo' ); ?></button>
+
+				<?php if ( 'success' === $status ) : ?>
+					<div class="woocommerce-message mt-px-15"><?php esc_html_e( 'Thank you! Your message has been sent.', 'davinciwoo' ); ?></div>
+				<?php elseif ( 'error' === $status ) : ?>
+					<div class="woocommerce-error mt-px-15"><?php esc_html_e( 'Message was not sent. Please try again.', 'davinciwoo' ); ?></div>
+				<?php endif; ?>
 			</p>
 		</form>
 		<?php
