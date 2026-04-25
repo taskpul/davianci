@@ -43,6 +43,7 @@ if( ! function_exists( 'adswth_defaults' ) ){
 			'logo_width' => 265,
 			'header_call_to_action' => __( 'Got a question? Call us!', 'davinciwoo' ),
 			'header_phone' => '(800) 888-888',
+			'contact_us_email' => get_bloginfo( 'admin_email' ),
 
             'header_sticky_show' => false,
 
