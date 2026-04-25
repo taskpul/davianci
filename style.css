@@ -221,6 +221,19 @@ All custom CSS should be added to the style.css of a Child Theme.
 	margin-bottom: 10px;
 }
 
+.woocommerce-checkout .woocommerce-billing-fields__field-wrapper #billing_country_field,
+.woocommerce-checkout .woocommerce-billing-fields__field-wrapper #billing_state_field,
+.woocommerce-checkout .woocommerce-billing-fields__field-wrapper #billing_postcode_field {
+	width: 33.3333%;
+	float: left;
+	clear: none;
+	padding-right: 10px;
+}
+
+.woocommerce-checkout .woocommerce-billing-fields__field-wrapper #billing_postcode_field {
+	padding-right: 0;
+}
+
 .woocommerce-checkout .woocommerce-billing-fields__field-wrapper .form-control,
 .woocommerce-checkout .woocommerce-billing-fields__field-wrapper input,
 .woocommerce-checkout .woocommerce-billing-fields__field-wrapper select,
@@ -271,5 +284,13 @@ All custom CSS should be added to the style.css of a Child Theme.
 
 	.woocommerce-checkout .checkout-shipping-title {
 		font-size: 30px;
+	}
+
+	.woocommerce-checkout .woocommerce-billing-fields__field-wrapper #billing_country_field,
+	.woocommerce-checkout .woocommerce-billing-fields__field-wrapper #billing_state_field,
+	.woocommerce-checkout .woocommerce-billing-fields__field-wrapper #billing_postcode_field {
+		width: 100%;
+		float: none;
+		padding-right: 0;
 	}
 }
