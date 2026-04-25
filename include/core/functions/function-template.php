@@ -209,7 +209,7 @@ function adswth_page_front_products_section( $section = '', $scheme = 'masonry',
 
         <?php do_action( 'adswth_start_loop_top_selling_product' );
 
-		$classes = [ 'product-box-row', 'row', 'no-gutters', 'mt-xs-px-15', 'mt-px-30' ];
+		$classes = [ 'product-box-row', 'row', 'mt-xs-px-15', 'mt-px-30' ];
 		$classes[] = 'product-box-row-' . $scheme;
 		$slider = '';
 		$css = '';
