@@ -112,10 +112,8 @@ if ( ! function_exists( 'adswth_single_product_price_row' ) ) {
 
 		$discount_data = adswth_get_product_discount_data( $product );
 
-		$price_html = $product->is_type( 'variable' ) ? '' : $product->get_price_html();
-
 		echo '<div class="adswth-price-row">';
-		echo '<p class="price adswth-product-price">' . wp_kses_post( $price_html ) . '</p>';
+		echo '<p class="price adswth-product-price">' . wp_kses_post( $product->get_price_html() ) . '</p>';
 
 		if ( ! empty( $discount_data['percentage'] ) && ! empty( $discount_data['amount'] ) ) {
 			$badge_text = sprintf(
