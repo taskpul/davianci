@@ -63,13 +63,14 @@ defined( 'ABSPATH' ) || exit;
 	}
 
 	.checkout-urgency-banner__text {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.4em;
-		font-size: 29px;
+		display: block;
+		font-size: 14px;
 		font-weight: 700;
-		line-height: 1.2;
+		line-height: 1.35;
+		color: #ffffff;
+		text-align: center;
+		white-space: normal;
+		word-break: normal;
 	}
 
 	.checkout-urgency-banner__timer {
@@ -78,17 +79,6 @@ defined( 'ABSPATH' ) || exit;
 		display: inline-block;
 	}
 
-	@media (max-width: 767px) {
-		.checkout-urgency-banner__text {
-			font-size: 22px;
-		}
-	}
-
-	@media (max-width: 575px) {
-		.checkout-urgency-banner__text {
-			font-size: 18px;
-		}
-	}
 </style>
 
 <script>
