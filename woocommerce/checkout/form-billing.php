@@ -25,8 +25,8 @@ defined( 'ABSPATH' ) || exit;
 		.woocommerce-billing-fields .checkout-shipping-title {
 			margin: 0 0 12px;
 			font-weight: 700;
-			font-size: 34px;
-			line-height: 1.2;
+			font-size: 24px;
+			line-height: 1.25;
 			color: #2f3f4a;
 			text-align: left;
 		}
@@ -40,6 +40,10 @@ defined( 'ABSPATH' ) || exit;
 			padding-left: 0;
 			padding-right: 0;
 			margin: 0 0 11px;
+		}
+
+		.woocommerce-billing-fields .woocommerce-billing-fields__field-wrapper .form-row:last-child {
+			margin-bottom: 0;
 		}
 
 		.woocommerce-billing-fields .checkout-form-field-half {
@@ -71,7 +75,7 @@ defined( 'ABSPATH' ) || exit;
 			min-height: 40px;
 			padding: 10px;
 			color: #4e5f6a;
-			font-size: 18px;
+			font-size: 15px;
 			line-height: 1.25;
 		}
 
@@ -87,14 +91,14 @@ defined( 'ABSPATH' ) || exit;
 		}
 
 		.woocommerce-billing-fields .checkout-register-toggle {
-			margin-top: -2px;
+			margin-top: 0;
 			margin-bottom: 11px;
 		}
 
 		.woocommerce-billing-fields .checkout-register-toggle .checkbox {
 			display: flex;
 			align-items: center;
-			font-size: 32px;
+			font-size: 15px;
 			color: #2f3f4a;
 			font-weight: 400;
 			margin: 0;
@@ -113,18 +117,14 @@ defined( 'ABSPATH' ) || exit;
 
 		@media (max-width: 575px) {
 			.woocommerce-billing-fields .checkout-shipping-title {
-				font-size: 30px;
+				font-size: 24px;
 			}
 
 			.woocommerce-billing-fields input.input-text,
 			.woocommerce-billing-fields select,
 			.woocommerce-billing-fields textarea {
-				font-size: 16px;
-				padding: 9px;
-			}
-
-			.woocommerce-billing-fields .checkout-register-toggle .checkbox {
-				font-size: 28px;
+				font-size: 15px;
+				padding: 10px;
 			}
 		}
 
@@ -189,6 +189,16 @@ defined( 'ABSPATH' ) || exit;
 					$field_value = $checkout->get_value( $field_key );
 					if ( 'billing_country' === $field_key && empty( $field_value ) ) {
 						$field_value = 'US';
+					}
+					if ( 'billing_state' === $field_key ) {
+						$fields[ $field_key ]['placeholder'] = __( 'Please select', 'davinciwoo' );
+						$field_value = empty( $field_value ) ? '' : $field_value;
+
+						if ( ! empty( $fields[ $field_key ]['options'] ) && is_array( $fields[ $field_key ]['options'] ) ) {
+							$state_options = $fields[ $field_key ]['options'];
+							unset( $state_options[''] );
+							$fields[ $field_key ]['options'] = array( '' => __( 'Please select', 'davinciwoo' ) ) + $state_options;
+						}
 					}
 
 					woocommerce_form_field( $field_key, $fields[ $field_key ], $field_value );
