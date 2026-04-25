@@ -132,6 +132,55 @@ if ( ! function_exists( 'adswth_single_product_price_row' ) ) {
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
 add_action( 'woocommerce_single_product_summary', 'adswth_single_product_price_row', 10 );
 
+if ( ! function_exists( 'adswth_sync_variable_price_with_selected_variation' ) ) {
+	/**
+	 * Keep the main single-product price in sync with the selected variation.
+	 */
+	function adswth_sync_variable_price_with_selected_variation() {
+		if ( ! is_product() ) {
+			return;
+		}
+		?>
+		<script>
+			jQuery(function ($) {
+				$('.variations_form').each(function () {
+					var $form = $(this);
+					var $product = $form.closest('.product');
+					var $price = $product.find('.adswth-product-price').first();
+					var $discountBadge = $product.find('.adswth-price-discount-badge').first();
+
+					if (!$price.length) {
+						return;
+					}
+
+					var defaultPriceHtml = $price.html();
+					var hadDiscountBadge = $discountBadge.length > 0;
+
+					$form.on('found_variation', function (event, variation) {
+						if (variation && variation.price_html) {
+							$price.html(variation.price_html);
+						}
+
+						if (hadDiscountBadge) {
+							$discountBadge.hide();
+						}
+					});
+
+					$form.on('reset_data hide_variation', function () {
+						$price.html(defaultPriceHtml);
+
+						if (hadDiscountBadge) {
+							$discountBadge.show();
+						}
+					});
+				});
+			});
+		</script>
+		<?php
+	}
+}
+add_action( 'wp_footer', 'adswth_sync_variable_price_with_selected_variation', 30 );
+
 function adswth_woocommerce_product_categories_widget_args( $args ) {
 
 	$args[ 'show_count' ] = adswth_option( 'menu_product_cat_show_count' );
