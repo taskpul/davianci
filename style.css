@@ -286,11 +286,4 @@ All custom CSS should be added to the style.css of a Child Theme.
 		font-size: 30px;
 	}
 
-	.woocommerce-checkout .woocommerce-billing-fields__field-wrapper #billing_country_field,
-	.woocommerce-checkout .woocommerce-billing-fields__field-wrapper #billing_state_field,
-	.woocommerce-checkout .woocommerce-billing-fields__field-wrapper #billing_postcode_field {
-		width: 100%;
-		float: none;
-		padding-right: 0;
-	}
 }
