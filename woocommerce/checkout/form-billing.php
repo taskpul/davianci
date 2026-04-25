@@ -32,6 +32,8 @@ defined( 'ABSPATH' ) || exit;
 		}
 
 		.woocommerce-billing-fields .woocommerce-billing-fields__field-wrapper {
+			display: flex;
+			flex-wrap: wrap;
 			margin-left: 0;
 			margin-right: 0;
 		}
@@ -63,6 +65,18 @@ defined( 'ABSPATH' ) || exit;
 		}
 
 		.woocommerce-billing-fields .checkout-form-field-third.checkout-form-field-third-last {
+			margin-right: 0;
+		}
+
+		.woocommerce-billing-fields .woocommerce-billing-fields__field-wrapper #billing_country_field,
+		.woocommerce-billing-fields .woocommerce-billing-fields__field-wrapper #billing_state_field,
+		.woocommerce-billing-fields .woocommerce-billing-fields__field-wrapper #billing_postcode_field {
+			flex: 0 0 calc(33.333% - 6.667px);
+			max-width: calc(33.333% - 6.667px);
+			margin-right: 10px;
+		}
+
+		.woocommerce-billing-fields .woocommerce-billing-fields__field-wrapper #billing_postcode_field {
 			margin-right: 0;
 		}
 
@@ -125,6 +139,16 @@ defined( 'ABSPATH' ) || exit;
 			.woocommerce-billing-fields textarea {
 				font-size: 15px;
 				padding: 10px;
+			}
+		}
+
+		@media (max-width: 767px) {
+			.woocommerce-billing-fields .woocommerce-billing-fields__field-wrapper #billing_country_field,
+			.woocommerce-billing-fields .woocommerce-billing-fields__field-wrapper #billing_state_field,
+			.woocommerce-billing-fields .woocommerce-billing-fields__field-wrapper #billing_postcode_field {
+				flex: 0 0 100%;
+				max-width: 100%;
+				margin-right: 0;
 			}
 		}
 
