@@ -190,15 +190,28 @@ defined( 'ABSPATH' ) || exit;
 					if ( 'billing_country' === $field_key && empty( $field_value ) ) {
 						$field_value = 'US';
 					}
+					if ( 'billing_country' === $field_key ) {
+						$fields[ $field_key ]['type'] = 'country';
+					}
 					if ( 'billing_state' === $field_key ) {
+						$fields[ $field_key ]['type'] = 'select';
 						$fields[ $field_key ]['placeholder'] = __( 'Please select', 'davinciwoo' );
 						$field_value = empty( $field_value ) ? '' : $field_value;
 
-						if ( ! empty( $fields[ $field_key ]['options'] ) && is_array( $fields[ $field_key ]['options'] ) ) {
-							$state_options = $fields[ $field_key ]['options'];
-							unset( $state_options[''] );
-							$fields[ $field_key ]['options'] = array( '' => __( 'Please select', 'davinciwoo' ) ) + $state_options;
+						$selected_country = ! empty( $checkout->get_value( 'billing_country' ) ) ? $checkout->get_value( 'billing_country' ) : 'US';
+						$state_options    = WC()->countries->get_states( $selected_country );
+						if ( ! is_array( $state_options ) ) {
+							$state_options = array();
 						}
+						$fields[ $field_key ]['options'] = $state_options;
+
+						if ( ! empty( $fields[ $field_key ]['options'] ) && is_array( $fields[ $field_key ]['options'] ) ) {
+							unset( $fields[ $field_key ]['options'][''] );
+						}
+						$fields[ $field_key ]['options'] = array( '' => __( 'Please select', 'davinciwoo' ) ) + $fields[ $field_key ]['options'];
+					}
+					if ( 'billing_postcode' === $field_key ) {
+						$fields[ $field_key ]['type'] = 'text';
 					}
 
 					woocommerce_form_field( $field_key, $fields[ $field_key ], $field_value );
