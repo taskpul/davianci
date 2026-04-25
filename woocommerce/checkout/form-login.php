@@ -24,7 +24,7 @@ if ( is_user_logged_in() || 'no' === get_option( 'woocommerce_enable_checkout_lo
 ?>
 <div class="col-lg-12">
     <div class="woocommerce-form-login-toggle mb-px-10">
-        <?php echo apply_filters( 'woocommerce_checkout_login_message', __( 'Returning customer?', 'woocommerce' ) ) . ' <a href="#" class="showlogin">' . __( 'Click here to login', 'woocommerce' ) . '</a>'; ?>
+        <?php echo apply_filters( 'woocommerce_checkout_login_message', __( 'Already have an account?', 'davinciwoo' ) ) . ' <a href="#" class="showlogin">' . __( 'Log in', 'davinciwoo' ) . '</a>'; ?>
     </div>
     <div class="row">
         <div class="col-lg-6">
