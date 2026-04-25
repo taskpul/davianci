@@ -189,3 +189,12 @@ All custom CSS should be added to the style.css of a Child Theme.
 	min-width: 20px;
 	object-fit: cover;
 }
+
+.woocommerce-Reviews form.comment-form .comment-form-country {
+	flex: 0 0 100%;
+	max-width: 100%;
+}
+
+.woocommerce-Reviews form.comment-form .comment-form-country select {
+	width: 100%;
+}
