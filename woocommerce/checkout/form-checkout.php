@@ -30,7 +30,6 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 ?>
 
 <form name="checkout" method="post" class="checkout woocommerce-checkout mt-px-20" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
-
     <div class="row">
 	<?php if ( $checkout->get_checkout_fields() ) : ?>
         <div class="col-lg-7">
@@ -65,5 +64,39 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
         </div>
     </div>
 </form>
+<script>
+    (function () {
+        var banner = document.querySelector('.checkout-cart-reserved-banner');
+        if (!banner) {
+            return;
+        }
+
+        var timerEl = banner.querySelector('.checkout-cart-reserved-banner__timer');
+        var totalSeconds = parseInt(banner.getAttribute('data-countdown-seconds') || '900', 10);
+        if (!timerEl || Number.isNaN(totalSeconds) || totalSeconds < 0) {
+            return;
+        }
+
+        function renderTimer(seconds) {
+            var mins = Math.floor(seconds / 60);
+            var secs = seconds % 60;
+            timerEl.textContent = String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+        }
+
+        renderTimer(totalSeconds);
+
+        var timerInterval = window.setInterval(function () {
+            totalSeconds -= 1;
+            if (totalSeconds <= 0) {
+                totalSeconds = 0;
+                renderTimer(totalSeconds);
+                window.clearInterval(timerInterval);
+                return;
+            }
+
+            renderTimer(totalSeconds);
+        }, 1000);
+    })();
+</script>
 
 <?php do_action( 'woocommerce_after_checkout_form', $checkout ); ?>

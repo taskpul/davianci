@@ -2,6 +2,17 @@
 remove_action( 'woocommerce_before_checkout_form', 'woocommerce_output_all_notices', 10 );
 add_action( 'woocommerce_before_checkout_form', 'woocommerce_output_all_notices', 5 );
 
+function adswth_checkout_cart_reserved_banner() {
+    ?>
+    <div class="checkout-cart-reserved-banner" data-countdown-seconds="900">
+        <span><?php esc_html_e( 'Due to extremely high demand your cart is reserved only for', 'davinciwoo' ); ?></span>
+        <strong class="checkout-cart-reserved-banner__timer" aria-live="polite">15:00</strong>
+        <span><?php esc_html_e( 'minutes', 'davinciwoo' ); ?></span>
+    </div>
+    <?php
+}
+add_action( 'woocommerce_before_checkout_form', 'adswth_checkout_cart_reserved_banner', 7 );
+
 function adswth_before_login_checkout_form(){
 	echo '<div class="row">';
 }
@@ -39,27 +50,31 @@ function adswth_form_field_args( $args, $key, $value = null ) {
     switch ( $args['id'] ) {
 
         case "billing_first_name" :
-        case "billing_address_1" :
             $args['class'][] = 'col-12 col-md-6';
             $args['input_class'] = array('form-control', 'w-100');
             $args['label_class'] = array('control-label', 'w-100');
             break;
 
         case "billing_last_name" :
-        case "billing_address_2" :
             $args['class'][] = 'col-12 col-md-6';
             $args['input_class'] = array('form-control', 'w-100');
             $args['label_class'] = array('control-label', 'w-100');
             break;
 
-        case "billing_company" :
         case "billing_country" :
-        case "billing_city" :
         case "billing_state" :
         case "billing_postcode" :
+            $args['class'][] = 'col-12 col-md-4';
+            $args['input_class'] = array('form-control', 'w-100');
+            $args['label_class'] = array('control-label', 'w-100');
+            break;
+
+        case "billing_company" :
+        case "billing_address_1" :
+        case "billing_address_2" :
+        case "billing_city" :
         case "billing_phone" :
         case "billing_email" :
-        case "order_comments" :
             $args['class'][] = 'col-12';
             $args['input_class'] = array('form-control', 'w-100');
             $args['label_class'] = array('control-label', 'w-100');
@@ -74,117 +89,44 @@ function adswth_form_field_args( $args, $key, $value = null ) {
 
     return $args;
 }
-/*	$foo = [
-		'billing_first_name' => [
-			'class'       => [ 'col-12', 'col-md-6' ],
-			'input_class' => [ 'w-100' ],
-			'label_class' => [ 'w-100' ]
-		],
-		'billing_last_name' => [
-			'class'       => [ 'col-12', 'col-md-6' ],
-			'input_class' => [ 'w-100' ],
-			'label_class' => [ 'w-100' ]
-		],
-		'billing_company' => [
-			'class'       => [ 'col-12' ],
-			'input_class' => [ 'w-100' ],
-			'label_class' => [ 'w-100' ]
-		],
-		'billing_country' => [
-			'class'       => [ 'col-12' ],
-			'input_class' => [ 'w-100' ],
-			'label_class' => [ 'w-100' ]
-		],
-		'billing_address_1' => [
-			'class'       => [ 'col-12', 'col-md-6' ],
-			'input_class' => [ 'w-100' ],
-			'label_class' => [ 'w-100' ]
-		],
-		'billing_address_2' => [
-			'class'       => [ 'col-12', 'col-md-6' ],
-			'input_class' => [ 'w-100' ],
-			'label_class' => [ 'w-100' ]
-		],
-		'billing_city' => [
-			'class'       => [ 'col-12' ],
-			'input_class' => [ 'w-100' ],
-			'label_class' => [ 'w-100' ]
-		],
-		'billing_state' => [
-			'class'       => [ 'col-12' ],
-			'input_class' => [ 'w-100' ],
-			'label_class' => [ 'w-100' ]
-		],
-		'billing_postcode' => [
-			'class'       => [ 'col-12' ],
-			'input_class' => [ 'w-100' ],
-			'label_class' => [ 'w-100' ]
-		],
-		'billing_phone' => [
-			'class'       => [ 'col-12', 'col-md-6' ],
-			'input_class' => [ 'w-100' ],
-			'label_class' => [ 'w-100' ]
-		],
-		'billing_email' => [
-			'class'       => [ 'col-12', 'col-md-6' ],
-			'input_class' => [ 'w-100' ],
-			'label_class' => [ 'w-100' ]
-		],
-
-		'order_comments' => [
-			'class'       => [ 'col-12' ],
-			'input_class' => [ 'w-100' ],
-			'label_class' => [ 'w-100' ]
-		],
-
-		'shipping_first_name' => [
-			'class'       => [ 'col-12', 'col-md-6' ],
-			'input_class' => [ 'w-100' ],
-			'label_class' => [ 'w-100' ]
-		],
-		'shipping_last_name' => [
-			'class'       => [ 'col-12', 'col-md-6' ],
-			'input_class' => [ 'w-100' ],
-			'label_class' => [ 'w-100' ]
-		],
-		'shipping_company' => [
-			'class'       => [ 'col-12' ],
-			'input_class' => [ 'w-100' ],
-			'label_class' => [ 'w-100' ]
-		],
-		'shipping_country' => [
-			'class'       => [ 'col-12' ],
-			'input_class' => [ 'w-100' ],
-			'label_class' => [ 'w-100' ]
-		],
-		'shipping_address_1' => [
-			'class'       => [ 'col-12', 'col-md-6' ],
-			'input_class' => [ 'w-100' ],
-			'label_class' => [ 'w-100' ]
-		],
-		'shipping_address_2' => [
-			'class'       => [ 'col-12', 'col-md-6' ],
-			'input_class' => [ 'w-100' ],
-			'label_class' => [ 'w-100' ]
-		],
-		'shipping_city' => [
-			'class'       => [ 'col-12' ],
-			'input_class' => [ 'w-100' ],
-			'label_class' => [ 'w-100' ]
-		],
-		'shipping_state' => [
-			'class'       => [ 'col-12' ],
-			'input_class' => [ 'w-100' ],
-			'label_class' => [ 'w-100' ]
-		],
-		'shipping_postcode' => [
-			'class'       => [ 'col-12' ],
-			'input_class' => [ 'w-100' ],
-			'label_class' => [ 'w-100' ]
-		]
-	];*/
-
-
-
 add_filter( 'woocommerce_form_field_args', 'adswth_form_field_args', 10, 3 );
 
+function adswth_checkout_fields_layout( $fields ) {
+    if ( isset( $fields['billing'] ) ) {
+        unset( $fields['billing']['billing_company'] );
+
+        $billing_field_updates = array(
+            'billing_email'      => array( 'label' => '', 'placeholder' => __( 'Email', 'davinciwoo' ), 'priority' => 10 ),
+            'billing_first_name' => array( 'label' => '', 'placeholder' => __( 'First Name', 'davinciwoo' ), 'priority' => 30 ),
+            'billing_last_name'  => array( 'label' => '', 'placeholder' => __( 'Last Name', 'davinciwoo' ), 'priority' => 40 ),
+            'billing_country'    => array( 'label' => '', 'priority' => 50, 'default' => 'US' ),
+            'billing_state'      => array( 'label' => '', 'placeholder' => __( 'Please select', 'davinciwoo' ), 'priority' => 60 ),
+            'billing_postcode'   => array( 'label' => '', 'placeholder' => __( 'Zip code', 'davinciwoo' ), 'priority' => 70 ),
+            'billing_address_1'  => array( 'label' => '', 'placeholder' => __( 'Address', 'davinciwoo' ), 'priority' => 80 ),
+            'billing_address_2'  => array( 'label' => '', 'placeholder' => __( 'Apt, Suite, PO Box, etc. (optional)', 'davinciwoo' ), 'priority' => 90 ),
+            'billing_city'       => array( 'label' => '', 'placeholder' => __( 'City', 'davinciwoo' ), 'priority' => 100 ),
+            'billing_phone'      => array( 'label' => '', 'placeholder' => __( 'Phone (optional)', 'davinciwoo' ), 'required' => false, 'priority' => 110 ),
+        );
+
+        foreach ( $billing_field_updates as $field_key => $field_data ) {
+            if ( isset( $fields['billing'][ $field_key ] ) ) {
+                $fields['billing'][ $field_key ] = array_merge( $fields['billing'][ $field_key ], $field_data );
+            }
+        }
+    }
+
+    if ( isset( $fields['order']['order_comments'] ) ) {
+        $fields['order']['order_comments'] = array_merge(
+            $fields['order']['order_comments'],
+            array(
+                'label'       => '',
+                'placeholder' => __( 'Additional details (optional)', 'davinciwoo' ),
+                'required'    => false,
+                'priority'    => 120,
+            )
+        );
+    }
+
+    return $fields;
+}
+add_filter( 'woocommerce_checkout_fields', 'adswth_checkout_fields_layout', 20 );

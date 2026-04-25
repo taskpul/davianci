@@ -176,3 +176,100 @@ All custom CSS should be added to the style.css of a Child Theme.
 	background: #fcebea;
 	color: #b71c1c;
 }
+
+/* Checkout page refresh */
+.woocommerce-checkout .checkout-cart-reserved-banner {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	width: 100%;
+	background: #ff4b4b;
+	color: #fff;
+	text-align: center;
+	font-weight: 700;
+	padding: 12px 16px;
+	margin-bottom: 14px;
+}
+
+.woocommerce-checkout .checkout-cart-reserved-banner__timer {
+	font-weight: 700;
+}
+
+.woocommerce-checkout .woocommerce-form-login-toggle,
+.woocommerce-checkout .woocommerce-form-coupon-toggle {
+	color: #666;
+	margin-bottom: 8px !important;
+}
+
+.woocommerce-checkout .woocommerce-form-login-toggle a,
+.woocommerce-checkout .woocommerce-form-coupon-toggle a {
+	color: #2f7ec3;
+}
+
+.woocommerce-checkout .checkout-shipping-title {
+	font-weight: 700;
+	font-size: 34px;
+	line-height: 1.2;
+	color: #333;
+	text-align: left;
+	margin: 26px 0 14px;
+	text-transform: none;
+}
+
+.woocommerce-checkout .woocommerce-billing-fields__field-wrapper > .form-row {
+	margin-bottom: 10px;
+}
+
+.woocommerce-checkout .woocommerce-billing-fields__field-wrapper .form-control,
+.woocommerce-checkout .woocommerce-billing-fields__field-wrapper input,
+.woocommerce-checkout .woocommerce-billing-fields__field-wrapper select,
+.woocommerce-checkout .woocommerce-billing-fields__field-wrapper textarea {
+	background: #fff;
+	border: 1px solid #d6d6d6;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
+.woocommerce-checkout .woocommerce-billing-fields__field-wrapper input,
+.woocommerce-checkout .woocommerce-billing-fields__field-wrapper select {
+	height: 40px;
+	padding: 10px;
+}
+
+.woocommerce-checkout .woocommerce-billing-fields__field-wrapper ::placeholder {
+	color: #8a8a8a;
+}
+
+.woocommerce-checkout .woocommerce-billing-fields__field-wrapper textarea {
+	min-height: 90px;
+	padding: 10px;
+}
+
+.woocommerce-checkout .checkout-register-toggle {
+	margin-top: -4px;
+}
+
+.woocommerce-checkout .checkout-register-toggle label {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 28px;
+	line-height: 1.2;
+	color: #333;
+	margin-bottom: 0;
+}
+
+.woocommerce-checkout .checkout-register-toggle input[type="checkbox"] {
+	margin-top: 0;
+}
+
+@media (max-width: 767px) {
+	.woocommerce-checkout .checkout-cart-reserved-banner {
+		flex-wrap: wrap;
+	}
+
+	.woocommerce-checkout .checkout-shipping-title {
+		font-size: 30px;
+	}
+}
