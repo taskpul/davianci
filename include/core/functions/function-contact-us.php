@@ -45,16 +45,15 @@ if ( ! function_exists( 'adswth_contact_us_replace_cf7_shortcode' ) ) {
 		}
 
 		$shortcode_pattern = '/\[contact-form-7[^\]]*]/i';
-		$form_html          = adswth_contact_us_form_html();
 
-		if ( preg_match( $shortcode_pattern, $content ) ) {
-			return preg_replace( $shortcode_pattern, $form_html, $content, 1 );
+		if ( ! preg_match( $shortcode_pattern, $content ) ) {
+			return $content;
 		}
 
-		return $content . $form_html;
+		return preg_replace( $shortcode_pattern, adswth_contact_us_form_html(), $content, 1 );
 	}
 }
-add_filter( 'the_content', 'adswth_contact_us_replace_cf7_shortcode', 5 );
+add_filter( 'the_content', 'adswth_contact_us_replace_cf7_shortcode', 20 );
 
 if ( ! function_exists( 'adswth_contact_us_submit' ) ) {
 	function adswth_contact_us_submit() {
