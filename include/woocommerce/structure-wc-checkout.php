@@ -46,6 +46,16 @@ function adswth_form_field_args( $args, $key, $value = null ) {
     'default'           => '',
     );
     /*********************************************************************************************/
+    $has_custom_checkout_layout_class = false;
+    if ( isset( $args['class'] ) && is_array( $args['class'] ) ) {
+        foreach ( $args['class'] as $class_name ) {
+            if ( false !== strpos( (string) $class_name, 'checkout-form-field-' ) ) {
+                $has_custom_checkout_layout_class = true;
+                break;
+            }
+        }
+    }
+
     // Start field type switch case
     switch ( $args['id'] ) {
 
@@ -67,7 +77,9 @@ function adswth_form_field_args( $args, $key, $value = null ) {
         case "shipping_country" :
         case "shipping_state" :
         case "shipping_postcode" :
-            $args['class'][] = 'col-12 col-md-4';
+            if ( ! $has_custom_checkout_layout_class ) {
+                $args['class'][] = 'col-12 col-md-4';
+            }
             $args['input_class'] = array('form-control', 'w-100');
             $args['label_class'] = array('control-label', 'w-100');
             break;
