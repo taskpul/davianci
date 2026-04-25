@@ -64,6 +64,9 @@ function adswth_form_field_args( $args, $key, $value = null ) {
         case "billing_country" :
         case "billing_state" :
         case "billing_postcode" :
+        case "shipping_country" :
+        case "shipping_state" :
+        case "shipping_postcode" :
             $args['class'][] = 'col-12 col-md-4';
             $args['input_class'] = array('form-control', 'w-100');
             $args['label_class'] = array('control-label', 'w-100');

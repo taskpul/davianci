@@ -223,14 +223,18 @@ All custom CSS should be added to the style.css of a Child Theme.
 
 .woocommerce-checkout .woocommerce-billing-fields__field-wrapper #billing_country_field,
 .woocommerce-checkout .woocommerce-billing-fields__field-wrapper #billing_state_field,
-.woocommerce-checkout .woocommerce-billing-fields__field-wrapper #billing_postcode_field {
+.woocommerce-checkout .woocommerce-billing-fields__field-wrapper #billing_postcode_field,
+.woocommerce-checkout .woocommerce-shipping-fields__field-wrapper #shipping_country_field,
+.woocommerce-checkout .woocommerce-shipping-fields__field-wrapper #shipping_state_field,
+.woocommerce-checkout .woocommerce-shipping-fields__field-wrapper #shipping_postcode_field {
 	width: 33.3333%;
 	float: left;
 	clear: none;
 	padding-right: 10px;
 }
 
-.woocommerce-checkout .woocommerce-billing-fields__field-wrapper #billing_postcode_field {
+.woocommerce-checkout .woocommerce-billing-fields__field-wrapper #billing_postcode_field,
+.woocommerce-checkout .woocommerce-shipping-fields__field-wrapper #shipping_postcode_field {
 	padding-right: 0;
 }
 
