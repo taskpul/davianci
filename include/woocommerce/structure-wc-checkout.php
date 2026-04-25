@@ -148,3 +148,39 @@ function adswth_checkout_fields_layout( $fields ) {
     return $fields;
 }
 add_filter( 'woocommerce_checkout_fields', 'adswth_checkout_fields_layout', 20 );
+
+function adswth_checkout_inline_country_state_postcode_classes( $address_fields ) {
+    $layout_classes = array(
+        'country'  => array( 'checkout-form-field-third' ),
+        'state'    => array( 'checkout-form-field-third' ),
+        'postcode' => array( 'checkout-form-field-third', 'checkout-form-field-third-last' ),
+    );
+
+    foreach ( $layout_classes as $field_key => $custom_classes ) {
+        if ( isset( $address_fields[ $field_key ] ) ) {
+            $address_fields[ $field_key ]['class'] = $custom_classes;
+        }
+    }
+
+    return $address_fields;
+}
+add_filter( 'woocommerce_default_address_fields', 'adswth_checkout_inline_country_state_postcode_classes', 20 );
+
+function adswth_checkout_inline_country_locale_classes( $locale ) {
+    $fields_to_update = array(
+        'country'  => array( 'checkout-form-field-third' ),
+        'state'    => array( 'checkout-form-field-third' ),
+        'postcode' => array( 'checkout-form-field-third', 'checkout-form-field-third-last' ),
+    );
+
+    foreach ( $locale as $country_code => $country_locale ) {
+        foreach ( $fields_to_update as $field_key => $custom_classes ) {
+            if ( isset( $country_locale[ $field_key ] ) ) {
+                $locale[ $country_code ][ $field_key ]['class'] = $custom_classes;
+            }
+        }
+    }
+
+    return $locale;
+}
+add_filter( 'woocommerce_get_country_locale', 'adswth_checkout_inline_country_locale_classes', 20 );
