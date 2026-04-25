@@ -279,6 +279,10 @@ function adswth_scripts() {
 									}
 								}
 							});
+
+							$form.on('hide_variation', function(){
+								$price.html(defaultPriceHtml);
+							});
 						});
 					});
 				})(jQuery);"
