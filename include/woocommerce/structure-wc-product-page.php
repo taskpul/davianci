@@ -191,15 +191,15 @@ if ( ! function_exists( 'adswth_add_review_country_field' ) ) {
 			$selected_country = strtoupper( sanitize_text_field( wp_unslash( $_POST['review_country'] ) ) );
 		}
 
-		$field = '<p class="comment-form-country"><label for="review_country">' . esc_html__( 'Country', 'davinciwoo' ) . '&nbsp;<span class="required">*</span></label>';
+		$field = '<p class="comment-form-country form-group form-control-select">';
 		$field .= '<select id="review_country" name="review_country" aria-required="true" required>';
-		$field .= '<option value="">' . esc_html__( 'Select country&hellip;', 'davinciwoo' ) . '</option>';
+		$field .= '<option value="">' . esc_html__( 'Select country...', 'davinciwoo' ) . '</option>';
 
 		foreach ( $countries as $country_code => $country_name ) {
 			$field .= '<option value="' . esc_attr( $country_code ) . '" ' . selected( $selected_country, $country_code, false ) . '>' . esc_html( $country_name ) . '</option>';
 		}
 
-		$field .= '</select></p>';
+		$field .= '</select><label for="review_country">' . esc_html__( 'Country', 'davinciwoo' ) . '&nbsp;<span class="required">*</span></label></p>';
 
 		$comment_form['fields']['review_country'] = $field;
 
