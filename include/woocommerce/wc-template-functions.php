@@ -132,6 +132,38 @@ if ( ! function_exists( 'adswth_single_product_price_row' ) ) {
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
 add_action( 'woocommerce_single_product_summary', 'adswth_single_product_price_row', 10 );
 
+if ( ! function_exists( 'adswth_add_variation_discount_badge_text' ) ) {
+	/**
+	 * Add variation-specific discount badge text to variation data for JS updates.
+	 *
+	 * @param array                $data Variation data.
+	 * @param WC_Product           $product Parent product.
+	 * @param WC_Product_Variation $variation Variation instance.
+	 * @return array
+	 */
+	function adswth_add_variation_discount_badge_text( $data, $product, $variation ) {
+		$regular_price = (float) $variation->get_regular_price();
+		$sale_price    = (float) $variation->get_sale_price();
+
+		$data['adswth_discount_badge_text'] = '';
+
+		if ( $regular_price > 0 && $sale_price > 0 && $sale_price < $regular_price ) {
+			$percentage = (int) round( 100 - ( $sale_price / $regular_price * 100 ) );
+			$amount     = $regular_price - $sale_price;
+
+			$data['adswth_discount_badge_text'] = sprintf(
+				/* translators: 1: percentage saved, 2: amount saved */
+				esc_html__( 'You save %1$s%% (%2$s)', 'davinciwoo' ),
+				$percentage,
+				wp_strip_all_tags( wc_price( $amount ) )
+			);
+		}
+
+		return $data;
+	}
+}
+add_filter( 'woocommerce_available_variation', 'adswth_add_variation_discount_badge_text', 10, 3 );
+
 function adswth_woocommerce_product_categories_widget_args( $args ) {
 
 	$args[ 'show_count' ] = adswth_option( 'menu_product_cat_show_count' );
