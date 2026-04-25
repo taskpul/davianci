@@ -191,7 +191,7 @@ if ( ! function_exists( 'adswth_add_review_country_field' ) ) {
 			$selected_country = strtoupper( sanitize_text_field( wp_unslash( $_POST['review_country'] ) ) );
 		}
 
-		$field = '<p class="comment-form-country form-group form-control-select">';
+		$field = '<p class="comment-form-country form-group form-control-select is-not-empty">';
 		$field .= '<select id="review_country" name="review_country" aria-required="true" required>';
 		$field .= '<option value="">' . esc_html__( 'Select country...', 'davinciwoo' ) . '</option>';
 
