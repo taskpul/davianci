@@ -199,7 +199,6 @@ function adswth_page_front_products_section( $section = '', $scheme = 'masonry',
 
 	$products = adswth_list_products( $args );
 
-	$i = 0;
 	if ( $products->have_posts() ) { ?>
 
         <div id="products-front-<?php echo $section; ?>" class="products-front-wrap mt-px-30">
@@ -290,33 +289,12 @@ function adswth_page_front_products_section( $section = '', $scheme = 'masonry',
 
 	            $products->the_post();
 
-		        $i++;
+		        echo '<div class="single-item col-xl-3 col-lg-4 col-sm-6">';
 
-		        if( $i == 1 || $i == 5 ) {
+		        wc_get_template_part( 'content', 'product' );
 
-			        echo '<div class="single-item col-xl-3 col-lg-4 col-sm-6">';
-
-			            wc_get_template_part( 'content', 'product' );
-
-			        echo '</div>';
-		        } else {
-
-			        if( $i == 2 || $i == 6 ) {
-
-				        $class = ( $i == 6 ) ? 'three-item-last' : '';
-
-				        echo '<div class="three-item ' . $class . ' col-xl-3 col-lg-4 col-sm-6">';
-			        }
-
-			        wc_get_template_part( 'content', 'product' );
-
-			        if( $i == 4 || $i == 8 ) {
-				        echo '</div>';
-			        }
-		        }
+		        echo '</div>';
 	        }
-
-	        if( ! in_array( $i, [ 0, 1, 4, 5, 8 ] ) ) echo '</div>';
 
         } elseif( $scheme == 'line' ){
 
