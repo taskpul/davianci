@@ -60,13 +60,15 @@ function adswth_form_field_args( $args, $key, $value = null ) {
     switch ( $args['id'] ) {
 
         case "billing_first_name" :
-            $args['class'][] = 'col-12 col-md-6';
+            $args['class'][] = 'col-12';
+            $args['class'][] = 'col-md-6';
             $args['input_class'] = array('form-control', 'w-100');
             $args['label_class'] = array('control-label', 'w-100');
             break;
 
         case "billing_last_name" :
-            $args['class'][] = 'col-12 col-md-6';
+            $args['class'][] = 'col-12';
+            $args['class'][] = 'col-md-6';
             $args['input_class'] = array('form-control', 'w-100');
             $args['label_class'] = array('control-label', 'w-100');
             break;
@@ -78,7 +80,8 @@ function adswth_form_field_args( $args, $key, $value = null ) {
         case "shipping_state" :
         case "shipping_postcode" :
             if ( ! $has_custom_checkout_layout_class ) {
-                $args['class'][] = 'col-12 col-md-4';
+                $args['class'][] = 'col-12';
+                $args['class'][] = 'col-md-4';
             }
             $args['input_class'] = array('form-control', 'w-100');
             $args['label_class'] = array('control-label', 'w-100');
