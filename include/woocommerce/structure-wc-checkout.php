@@ -53,11 +53,18 @@ function adswth_form_field_args( $args, $key, $value = null ) {
             break;
 
         case "billing_company" :
-        case "billing_country" :
-        case "billing_city" :
-        case "billing_state" :
         case "billing_postcode" :
         case "billing_phone" :
+        case "billing_city" :
+        case "shipping_postcode" :
+        case "shipping_city" :
+            $args['class'][] = 'col-12 col-md-6';
+            $args['input_class'] = array('form-control', 'w-100');
+            $args['label_class'] = array('control-label', 'w-100');
+            break;
+
+        case "billing_country" :
+        case "billing_state" :
         case "billing_email" :
         case "order_comments" :
             $args['class'][] = 'col-12';
@@ -188,3 +195,39 @@ function adswth_form_field_args( $args, $key, $value = null ) {
 
 add_filter( 'woocommerce_form_field_args', 'adswth_form_field_args', 10, 3 );
 
+function adswth_checkout_fields_layout( $fields ) {
+	if ( isset( $fields['billing']['billing_company'] ) ) {
+		$fields['billing']['billing_company']['priority'] = 30;
+	}
+
+	if ( isset( $fields['billing']['billing_phone'] ) ) {
+		$fields['billing']['billing_phone']['priority'] = 31;
+	}
+
+	if ( isset( $fields['billing']['billing_city'] ) ) {
+		$fields['billing']['billing_city']['priority'] = 70;
+	}
+
+	if ( isset( $fields['billing']['billing_postcode'] ) ) {
+		$fields['billing']['billing_postcode']['priority'] = 71;
+	}
+
+	if ( isset( $fields['billing']['billing_state'] ) ) {
+		$fields['billing']['billing_state']['priority'] = 72;
+	}
+
+	if ( isset( $fields['shipping']['shipping_city'] ) ) {
+		$fields['shipping']['shipping_city']['priority'] = 70;
+	}
+
+	if ( isset( $fields['shipping']['shipping_postcode'] ) ) {
+		$fields['shipping']['shipping_postcode']['priority'] = 71;
+	}
+
+	if ( isset( $fields['shipping']['shipping_state'] ) ) {
+		$fields['shipping']['shipping_state']['priority'] = 72;
+	}
+
+	return $fields;
+}
+add_filter( 'woocommerce_checkout_fields', 'adswth_checkout_fields_layout' );
