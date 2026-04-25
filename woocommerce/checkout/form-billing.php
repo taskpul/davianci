@@ -142,7 +142,7 @@ defined( 'ABSPATH' ) || exit;
 			}
 		}
 
-		@media (max-width: 360px) {
+		@media (max-width: 320px) {
 			.woocommerce-billing-fields .checkout-form-field-half,
 			.woocommerce-billing-fields .checkout-form-field-third {
 				flex: 0 0 100%;
