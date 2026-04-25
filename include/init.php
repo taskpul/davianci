@@ -38,6 +38,7 @@ require ADSW_THEME_PATH . '/include/core/functions/function-conditionals.php';
 require ADSW_THEME_PATH . '/include/core/functions/function-global.php';
 require ADSW_THEME_PATH . '/include/core/functions/function-defaults.php';
 require ADSW_THEME_PATH . '/include/core/functions/function-setup.php';
+require ADSW_THEME_PATH . '/include/core/functions/function-contact-page.php';
 
 require ADSW_THEME_PATH . '/include/core/functions/function-template.php';
 
@@ -92,6 +93,7 @@ include_once( ADSW_THEME_PATH . '/include/admin/options/styles/options-css.php' 
 include_once( ADSW_THEME_PATH . '/include/admin/options/header/options-header.php' );
 include_once( ADSW_THEME_PATH . '/include/admin/options/page-front/options-page-front.php' );
 include_once( ADSW_THEME_PATH . '/include/admin/options/footer/options-footer.php');
+include_once( ADSW_THEME_PATH . '/include/admin/options/service-pages/options-service-pages.php');
 
 //Blog
 include_once( ADSW_THEME_PATH . '/include/admin/options/blog/options-blog.php');

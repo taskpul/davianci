@@ -93,3 +93,86 @@ All custom CSS should be added to the style.css of a Child Theme.
 	margin-left: 0;
 	margin-right: 0;
 }
+
+/* Contact Us page template */
+.page-contact-us-wrap {
+	padding-bottom: 40px;
+}
+
+.page-contact-us .contact-us-content {
+	max-width: 620px;
+	margin: 0 auto;
+}
+
+.page-contact-us .page-title {
+	margin-bottom: 20px;
+}
+
+.page-contact-us .contact-us-intro {
+	font-size: 16px;
+	line-height: 1.5;
+	color: #2f4555;
+	margin-bottom: 20px;
+}
+
+.page-contact-us .contact-us-email {
+	display: inline-block;
+	font-size: 16px;
+	line-height: 1.4;
+	color: #1e5279;
+	border-bottom: 1px solid #1e5279;
+	margin-bottom: 20px;
+}
+
+.page-contact-us .contact-us-socials {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 22px;
+	margin-bottom: 24px;
+}
+
+.page-contact-us .contact-us-socials a {
+	color: #1e5279;
+	font-size: 24px;
+	line-height: 1;
+}
+
+.page-contact-us .contact-us-form input,
+.page-contact-us .contact-us-form textarea {
+	width: 100%;
+	margin-bottom: 10px;
+	padding: 10px 14px;
+	border: 1px solid #d0d0d0;
+	border-radius: 4px;
+	font-size: 16px;
+}
+
+.page-contact-us .contact-us-form textarea {
+	resize: vertical;
+	min-height: 140px;
+}
+
+.page-contact-us .contact-us-submit {
+	min-width: 300px;
+	margin-top: 4px;
+	font-weight: 600;
+	font-size: 20px;
+}
+
+.page-contact-us .contact-us-form-message {
+	padding: 10px 12px;
+	border-radius: 4px;
+	margin-bottom: 12px;
+	font-size: 14px;
+}
+
+.page-contact-us .contact-us-form-message.success {
+	background: #e9f7ef;
+	color: #2e7d32;
+}
+
+.page-contact-us .contact-us-form-message.error {
+	background: #fcebea;
+	color: #b71c1c;
+}

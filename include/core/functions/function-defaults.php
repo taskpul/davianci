@@ -197,6 +197,30 @@ if( ! function_exists( 'adswth_defaults' ) ){
 			'subscribe_code' => adswth_get_template_field( 'subscribe-form-default' ),
 			'subscribe_background_color' => '#F1F1F1',
 
+			//Contact Us Template
+			'contact_us_page_title' => __( 'Contact Us', 'davinciwoo' ),
+			'contact_us_intro_text' => __( 'Have any questions or need to get more information about the product? Either way, you&rsquo;re in the right spot.', 'davinciwoo' ),
+			'contact_us_email' => 'support@' . adswth_get_site_domain(),
+			'contact_us_socials' => [
+				[
+					'icon' => 'facebook',
+					'url' => 'https://facebook.com',
+				],
+				[
+					'icon' => 'instagram',
+					'url' => 'https://instagram.com',
+				],
+				[
+					'icon' => 'twitter',
+					'url' => 'https://x.com',
+				],
+				[
+					'icon' => 'youtube-play',
+					'url' => 'https://youtube.com',
+				],
+			],
+			'contact_form_recipient_email' => get_option( 'admin_email' ),
+
 			//Product Settings
 			'product_average_rating_use' => 1,
 			'product_average_rating' => 4.5,
