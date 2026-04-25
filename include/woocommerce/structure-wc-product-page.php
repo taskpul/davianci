@@ -137,3 +137,138 @@ function adswth_woocommerce_get_script_data(  $params, $handle ){
 	return $params;
 }
 add_filter( 'woocommerce_get_script_data', 'adswth_woocommerce_get_script_data', 10, 2);
+
+if ( ! function_exists( 'adswth_get_review_countries_with_flags' ) ) {
+	/**
+	 * Get countries list that have available flag images.
+	 *
+	 * @return array
+	 */
+	function adswth_get_review_countries_with_flags() {
+		$countries = [];
+
+		if ( ! function_exists( 'WC' ) || ! WC()->countries ) {
+			return $countries;
+		}
+
+		$wc_countries = WC()->countries->get_countries();
+		$flags        = glob( get_template_directory() . '/assets/images/flags/*.gif' );
+
+		if ( empty( $flags ) ) {
+			return $countries;
+		}
+
+		foreach ( $flags as $flag_file ) {
+			$country_code = strtoupper( pathinfo( $flag_file, PATHINFO_FILENAME ) );
+
+			if ( isset( $wc_countries[ $country_code ] ) ) {
+				$countries[ $country_code ] = $wc_countries[ $country_code ];
+			}
+		}
+
+		asort( $countries );
+
+		return $countries;
+	}
+}
+
+if ( ! function_exists( 'adswth_add_review_country_field' ) ) {
+	/**
+	 * Add country selector to the product review form.
+	 *
+	 * @param array $comment_form Comment form args.
+	 * @return array
+	 */
+	function adswth_add_review_country_field( $comment_form ) {
+		$countries = adswth_get_review_countries_with_flags();
+
+		if ( empty( $countries ) ) {
+			return $comment_form;
+		}
+
+		$selected_country = '';
+		if ( isset( $_POST['review_country'] ) ) {
+			$selected_country = strtoupper( sanitize_text_field( wp_unslash( $_POST['review_country'] ) ) );
+		}
+
+		$field = '<p class="comment-form-country"><label for="review_country">' . esc_html__( 'Country', 'davinciwoo' ) . '&nbsp;<span class="required">*</span></label>';
+		$field .= '<select id="review_country" name="review_country" aria-required="true" required>';
+		$field .= '<option value="">' . esc_html__( 'Select country&hellip;', 'davinciwoo' ) . '</option>';
+
+		foreach ( $countries as $country_code => $country_name ) {
+			$field .= '<option value="' . esc_attr( $country_code ) . '" ' . selected( $selected_country, $country_code, false ) . '>' . esc_html( $country_name ) . '</option>';
+		}
+
+		$field .= '</select></p>';
+
+		$comment_form['fields']['review_country'] = $field;
+
+		return $comment_form;
+	}
+}
+add_filter( 'woocommerce_product_review_comment_form_args', 'adswth_add_review_country_field', 20 );
+
+if ( ! function_exists( 'adswth_save_review_country' ) ) {
+	/**
+	 * Save selected review country into comment meta.
+	 *
+	 * @param int $comment_id Comment ID.
+	 */
+	function adswth_save_review_country( $comment_id ) {
+		if ( ! isset( $_POST['review_country'] ) ) {
+			return;
+		}
+
+		$comment = get_comment( $comment_id );
+
+		if ( ! $comment || 'product' !== get_post_type( $comment->comment_post_ID ) ) {
+			return;
+		}
+
+		$country_code = strtoupper( sanitize_text_field( wp_unslash( $_POST['review_country'] ) ) );
+		$countries    = adswth_get_review_countries_with_flags();
+
+		if ( empty( $country_code ) || ! isset( $countries[ $country_code ] ) ) {
+			return;
+		}
+
+		update_comment_meta( $comment_id, 'review_country', $country_code );
+	}
+}
+add_action( 'comment_post', 'adswth_save_review_country', 10 );
+
+if ( ! function_exists( 'adswth_add_flag_to_review_author' ) ) {
+	/**
+	 * Add selected country flag before review author name.
+	 *
+	 * @param string $author     Author name.
+	 * @param int    $comment_id Comment ID.
+	 * @return string
+	 */
+	function adswth_add_flag_to_review_author( $author, $comment_id ) {
+		$comment = get_comment( $comment_id );
+
+		if ( ! $comment || 'product' !== get_post_type( $comment->comment_post_ID ) ) {
+			return $author;
+		}
+
+		$country_code = strtoupper( (string) get_comment_meta( $comment_id, 'review_country', true ) );
+
+		if ( empty( $country_code ) ) {
+			return $author;
+		}
+
+		$flag_path = get_template_directory() . '/assets/images/flags/' . $country_code . '.gif';
+
+		if ( ! file_exists( $flag_path ) ) {
+			return $author;
+		}
+
+		$flag_url = get_template_directory_uri() . '/assets/images/flags/' . $country_code . '.gif';
+		$countries = adswth_get_review_countries_with_flags();
+		$country_name = isset( $countries[ $country_code ] ) ? $countries[ $country_code ] : $country_code;
+
+		return '<span class="review-country-wrap"><img class="review-country-flag" src="' . esc_url( $flag_url ) . '" alt="' . esc_attr( $country_code ) . '" width="20" height="15" /> <span class="review-country-author">' . $author . ' <span class="review-country-name">(' . esc_html( $country_name ) . ')</span></span></span>';
+	}
+}
+add_filter( 'get_comment_author', 'adswth_add_flag_to_review_author', 10, 2 );

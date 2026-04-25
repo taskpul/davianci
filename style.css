@@ -176,3 +176,16 @@ All custom CSS should be added to the style.css of a Child Theme.
 	background: #fcebea;
 	color: #b71c1c;
 }
+
+.woocommerce-Reviews .review-country-wrap {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.woocommerce-Reviews .review-country-flag {
+	width: 20px;
+	height: 15px;
+	min-width: 20px;
+	object-fit: cover;
+}
