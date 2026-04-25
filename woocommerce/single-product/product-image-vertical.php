@@ -71,7 +71,7 @@ $position = adswth_option( 'product_image_thumbnails_position' );
 <?php do_action('adswth_after_product_images'); ?>
     <?php if( !empty( $attachment_ids ) && count( $attachment_ids ) > 0 ) { ?>
 	<div class="col-2 product-thumbnails-wrap direction-vertical <?php echo ( $position == 'left' ) ? 'order-1' : ''; ?> <?php echo count( $attachment_ids ) < 5 ? 'slider-no-arrows' : ''; ?>">
-		<?php wc_get_template( 'woocommerce/single-product/product-gallery-thumbnails.php' ); ?>
+		<?php wc_get_template( 'single-product/product-gallery-thumbnails.php' ); ?>
 	</div>
     <?php } //endif; ?>
 </div>

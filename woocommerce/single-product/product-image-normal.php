@@ -63,4 +63,4 @@ $slider_classes[] = 'disable-lightbox';
 </div>
 <?php do_action('adswth_after_product_images'); ?>
 
-<?php wc_get_template( 'woocommerce/single-product/product-gallery-thumbnails.php' ); ?>
+<?php wc_get_template( 'single-product/product-gallery-thumbnails.php' ); ?>
