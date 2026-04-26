@@ -162,149 +162,63 @@ if ( ! function_exists( 'adswth_render_product_details_metabox' ) ) {
 	 * @param WP_Post $post Current post object.
 	 */
 	function adswth_render_product_details_metabox( $post ) {
-		$blocks = get_post_meta( $post->ID, '_adswth_product_details_blocks', true );
-
-		if ( ! is_array( $blocks ) || empty( $blocks ) ) {
-			$legacy_title    = get_post_meta( $post->ID, '_adswth_product_details_section_title', true );
-			$legacy_bullets  = get_post_meta( $post->ID, '_adswth_product_details_bullets', true );
-			$legacy_image_id = absint( get_post_meta( $post->ID, '_adswth_product_details_image_id', true ) );
-
-			if ( $legacy_title || $legacy_bullets || $legacy_image_id ) {
-				$blocks = [
-					[
-						'title'    => $legacy_title,
-						'bullets'  => $legacy_bullets,
-						'image_id' => $legacy_image_id,
-					],
-				];
-			} else {
-				$blocks = [];
-			}
-		}
+		$title    = get_post_meta( $post->ID, '_adswth_product_details_section_title', true );
+		$bullets  = get_post_meta( $post->ID, '_adswth_product_details_bullets', true );
+		$image_id = absint( get_post_meta( $post->ID, '_adswth_product_details_image_id', true ) );
+		$image    = $image_id ? wp_get_attachment_image_src( $image_id, 'medium' ) : false;
 
 		wp_nonce_field( 'adswth_save_product_details_metabox', 'adswth_product_details_nonce' );
 		?>
-		<div id="adswth-product-details-blocks">
-			<?php foreach ( $blocks as $index => $block ) : ?>
-				<?php
-				$title    = isset( $block['title'] ) ? $block['title'] : '';
-				$bullets  = isset( $block['bullets'] ) ? $block['bullets'] : '';
-				$image_id = isset( $block['image_id'] ) ? absint( $block['image_id'] ) : 0;
-				$image    = $image_id ? wp_get_attachment_image_src( $image_id, 'medium' ) : false;
-				?>
-				<div class="adswth-product-details-block" style="padding:16px;margin-bottom:16px;border:1px solid #dcdcde;border-radius:6px;">
-					<p>
-						<label><strong><?php esc_html_e( 'Title', 'davinciwoo' ); ?></strong></label>
-						<input class="widefat adswth-product-details-title" type="text" value="<?php echo esc_attr( $title ); ?>" />
-					</p>
-					<p>
-						<label><strong><?php esc_html_e( 'Bullet points', 'davinciwoo' ); ?></strong></label>
-						<textarea class="widefat adswth-product-details-bullets" rows="6" placeholder="<?php esc_attr_e( 'Add one bullet point per line', 'davinciwoo' ); ?>"><?php echo esc_textarea( $bullets ); ?></textarea>
-					</p>
-					<p>
-						<label><strong><?php esc_html_e( 'Image', 'davinciwoo' ); ?></strong></label>
-					</p>
-					<div class="adswth-product-details-image-field">
-						<input type="hidden" class="adswth-product-details-image-id" value="<?php echo esc_attr( $image_id ); ?>" />
-						<div class="adswth-product-details-image-preview" style="margin-bottom:10px;">
-							<?php if ( $image ) : ?>
-								<img src="<?php echo esc_url( $image[0] ); ?>" alt="" style="max-width:220px;height:auto;" />
-							<?php endif; ?>
-						</div>
-						<button type="button" class="button adswth-product-details-upload"><?php esc_html_e( 'Choose image', 'davinciwoo' ); ?></button>
-						<button type="button" class="button adswth-product-details-remove" <?php echo $image_id ? '' : 'style="display:none;"'; ?>><?php esc_html_e( 'Remove image', 'davinciwoo' ); ?></button>
-					</div>
-					<p style="margin-top:12px;">
-						<button type="button" class="button-link-delete adswth-product-details-delete-block"><?php esc_html_e( 'Remove block', 'davinciwoo' ); ?></button>
-					</p>
-				</div>
-			<?php endforeach; ?>
-		</div>
 		<p>
-			<button type="button" class="button button-primary" id="adswth-product-details-add-block"><?php esc_html_e( 'Add Detail Block', 'davinciwoo' ); ?></button>
+			<label for="adswth_product_details_section_title"><strong><?php esc_html_e( 'Section title', 'davinciwoo' ); ?></strong></label>
+			<input class="widefat" type="text" id="adswth_product_details_section_title" name="adswth_product_details_section_title" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
-		<input type="hidden" id="adswth_product_details_blocks_data" name="adswth_product_details_blocks_data" value="" />
+		<p>
+			<label for="adswth_product_details_bullets"><strong><?php esc_html_e( 'Bullet points', 'davinciwoo' ); ?></strong></label>
+			<textarea class="widefat" rows="6" id="adswth_product_details_bullets" name="adswth_product_details_bullets" placeholder="<?php esc_attr_e( "Add one bullet point per line", 'davinciwoo' ); ?>"><?php echo esc_textarea( $bullets ); ?></textarea>
+		</p>
+		<p>
+			<label><strong><?php esc_html_e( 'Section image', 'davinciwoo' ); ?></strong></label>
+		</p>
+		<div class="adswth-product-details-image-field">
+			<input type="hidden" id="adswth_product_details_image_id" name="adswth_product_details_image_id" value="<?php echo esc_attr( $image_id ); ?>" />
+			<div class="adswth-product-details-image-preview" style="margin-bottom:10px;">
+				<?php if ( $image ) : ?>
+					<img src="<?php echo esc_url( $image[0] ); ?>" alt="" style="max-width:220px;height:auto;" />
+				<?php endif; ?>
+			</div>
+			<button type="button" class="button adswth-product-details-upload"><?php esc_html_e( 'Choose image', 'davinciwoo' ); ?></button>
+			<button type="button" class="button adswth-product-details-remove" <?php echo $image_id ? '' : 'style="display:none;"'; ?>><?php esc_html_e( 'Remove image', 'davinciwoo' ); ?></button>
+		</div>
 		<script>
 			jQuery(function($){
 				var frame;
-				var blocksWrap = $('#adswth-product-details-blocks');
-				var hiddenField = $('#adswth_product_details_blocks_data');
-				var newBlockTemplate = function() {
-					return '<div class="adswth-product-details-block" style="padding:16px;margin-bottom:16px;border:1px solid #dcdcde;border-radius:6px;">' +
-						'<p><label><strong><?php echo esc_js( __( 'Title', 'davinciwoo' ) ); ?></strong></label><input class="widefat adswth-product-details-title" type="text" value="" /></p>' +
-						'<p><label><strong><?php echo esc_js( __( 'Bullet points', 'davinciwoo' ) ); ?></strong></label><textarea class="widefat adswth-product-details-bullets" rows="6" placeholder="<?php echo esc_js( __( 'Add one bullet point per line', 'davinciwoo' ) ); ?>"></textarea></p>' +
-						'<p><label><strong><?php echo esc_js( __( 'Image', 'davinciwoo' ) ); ?></strong></label></p>' +
-						'<div class="adswth-product-details-image-field">' +
-						'<input type="hidden" class="adswth-product-details-image-id" value="" />' +
-						'<div class="adswth-product-details-image-preview" style="margin-bottom:10px;"></div>' +
-						'<button type="button" class="button adswth-product-details-upload"><?php echo esc_js( __( 'Choose image', 'davinciwoo' ) ); ?></button> ' +
-						'<button type="button" class="button adswth-product-details-remove" style="display:none;"><?php echo esc_js( __( 'Remove image', 'davinciwoo' ) ); ?></button>' +
-						'</div>' +
-						'<p style="margin-top:12px;"><button type="button" class="button-link-delete adswth-product-details-delete-block"><?php echo esc_js( __( 'Remove block', 'davinciwoo' ) ); ?></button></p>' +
-						'</div>';
-				};
-
-				var syncBlocksToHiddenField = function() {
-					var blocks = [];
-					blocksWrap.find('.adswth-product-details-block').each(function(){
-						var block = $(this);
-						blocks.push({
-							title: block.find('.adswth-product-details-title').val() || '',
-							bullets: block.find('.adswth-product-details-bullets').val() || '',
-							image_id: parseInt(block.find('.adswth-product-details-image-id').val(), 10) || 0
-						});
-					});
-					hiddenField.val(JSON.stringify(blocks));
-				};
-
-				$('#adswth-product-details-add-block').on('click', function(e){
+				var container = $('.adswth-product-details-image-field');
+				container.on('click', '.adswth-product-details-upload', function(e){
 					e.preventDefault();
-					blocksWrap.append(newBlockTemplate());
-					syncBlocksToHiddenField();
-				});
-
-				blocksWrap.on('input change', '.adswth-product-details-title, .adswth-product-details-bullets, .adswth-product-details-image-id', syncBlocksToHiddenField);
-
-				blocksWrap.on('click', '.adswth-product-details-delete-block', function(e){
-					e.preventDefault();
-					$(this).closest('.adswth-product-details-block').remove();
-					syncBlocksToHiddenField();
-				});
-
-				blocksWrap.on('click', '.adswth-product-details-upload', function(e){
-					e.preventDefault();
-					var currentBlock = $(this).closest('.adswth-product-details-block');
 					if (frame) {
 						frame.open();
-						frame.off('select');
-					} else {
-						frame = wp.media({
-							title: '<?php echo esc_js( __( 'Select section image', 'davinciwoo' ) ); ?>',
-							button: { text: '<?php echo esc_js( __( 'Use this image', 'davinciwoo' ) ); ?>' },
-							multiple: false
-						});
+						return;
 					}
-
+					frame = wp.media({
+						title: '<?php echo esc_js( __( 'Select section image', 'davinciwoo' ) ); ?>',
+						button: { text: '<?php echo esc_js( __( 'Use this image', 'davinciwoo' ) ); ?>' },
+						multiple: false
+					});
 					frame.on('select', function(){
 						var attachment = frame.state().get('selection').first().toJSON();
-						currentBlock.find('.adswth-product-details-image-id').val(attachment.id);
-						currentBlock.find('.adswth-product-details-image-preview').html('<img src="' + attachment.url + '" alt="" style="max-width:220px;height:auto;" />');
-						currentBlock.find('.adswth-product-details-remove').show();
-						syncBlocksToHiddenField();
+						container.find('#adswth_product_details_image_id').val(attachment.id);
+						container.find('.adswth-product-details-image-preview').html('<img src="' + attachment.url + '" alt="" style="max-width:220px;height:auto;" />');
+						container.find('.adswth-product-details-remove').show();
 					});
 					frame.open();
 				});
-
-				blocksWrap.on('click', '.adswth-product-details-remove', function(e){
+				container.on('click', '.adswth-product-details-remove', function(e){
 					e.preventDefault();
-					var currentBlock = $(this).closest('.adswth-product-details-block');
-					currentBlock.find('.adswth-product-details-image-id').val('');
-					currentBlock.find('.adswth-product-details-image-preview').empty();
+					container.find('#adswth_product_details_image_id').val('');
+					container.find('.adswth-product-details-image-preview').empty();
 					$(this).hide();
-					syncBlocksToHiddenField();
 				});
-
-				syncBlocksToHiddenField();
 			});
 		</script>
 		<?php
@@ -351,33 +265,13 @@ if ( ! function_exists( 'adswth_save_product_details_metabox' ) ) {
 			return;
 		}
 
-		$raw_blocks = isset( $_POST['adswth_product_details_blocks_data'] ) ? wp_unslash( $_POST['adswth_product_details_blocks_data'] ) : '';
-		$blocks     = json_decode( (string) $raw_blocks, true );
-		$sanitized  = [];
+		$title   = isset( $_POST['adswth_product_details_section_title'] ) ? sanitize_text_field( wp_unslash( $_POST['adswth_product_details_section_title'] ) ) : '';
+		$bullets = isset( $_POST['adswth_product_details_bullets'] ) ? sanitize_textarea_field( wp_unslash( $_POST['adswth_product_details_bullets'] ) ) : '';
+		$image   = isset( $_POST['adswth_product_details_image_id'] ) ? absint( wp_unslash( $_POST['adswth_product_details_image_id'] ) ) : 0;
 
-		if ( is_array( $blocks ) ) {
-			foreach ( $blocks as $block ) {
-				if ( ! is_array( $block ) ) {
-					continue;
-				}
-
-				$title   = isset( $block['title'] ) ? sanitize_text_field( $block['title'] ) : '';
-				$bullets = isset( $block['bullets'] ) ? sanitize_textarea_field( $block['bullets'] ) : '';
-				$image   = isset( $block['image_id'] ) ? absint( $block['image_id'] ) : 0;
-
-				if ( '' === $title && '' === $bullets && 0 === $image ) {
-					continue;
-				}
-
-				$sanitized[] = [
-					'title'    => $title,
-					'bullets'  => $bullets,
-					'image_id' => $image,
-				];
-			}
-		}
-
-		update_post_meta( $post_id, '_adswth_product_details_blocks', $sanitized );
+		update_post_meta( $post_id, '_adswth_product_details_section_title', $title );
+		update_post_meta( $post_id, '_adswth_product_details_bullets', $bullets );
+		update_post_meta( $post_id, '_adswth_product_details_image_id', $image );
 	}
 }
 add_action( 'save_post_product', 'adswth_save_product_details_metabox' );
