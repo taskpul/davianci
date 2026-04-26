@@ -55,6 +55,24 @@ function adswth_setup() {
 }
 add_action( 'after_setup_theme', 'adswth_setup' );
 
+/**
+ * Use the classic editor for posts and pages in wp-admin.
+ *
+ * @param bool   $use_block_editor Whether the block editor should be used.
+ * @param string $post_type        Current post type.
+ *
+ * @return bool
+ */
+function adswth_use_classic_editor_for_content( $use_block_editor, $post_type ) {
+	if ( in_array( $post_type, [ 'post', 'page' ], true ) ) {
+		return false;
+	}
+
+	return $use_block_editor;
+}
+add_filter( 'use_block_editor_for_post_type', 'adswth_use_classic_editor_for_content', 10, 2 );
+add_filter( 'gutenberg_can_edit_post_type', 'adswth_use_classic_editor_for_content', 10, 2 );
+
 function adswth_setup_options( $old_name ) {
     update_option( 'woocommerce_thumbnail_cropping', '1:1' );
 }
