@@ -53,8 +53,6 @@ All custom CSS should be added to the style.css of a Child Theme.
 	max-width: 100%;
 	min-width: 100%;
 	text-align: center;
-	background-color: #2cc132;
-	border-color: #2cc132;
 }
 
 .woocommerce div.product form.cart .woocommerce-add-to-cart-group .single_add_to_cart_button-group .view-cart {
