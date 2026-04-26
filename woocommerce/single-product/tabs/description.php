@@ -46,22 +46,18 @@ if ( ! is_array( $detail_blocks ) || empty( $detail_blocks ) ) {
 }
 
 if ( ! empty( $detail_blocks ) ) :
-	foreach ( $detail_blocks as $block_index => $detail_block ) :
+	foreach ( $detail_blocks as $detail_block ) :
 		$section_title = isset( $detail_block['title'] ) ? $detail_block['title'] : '';
 		$raw_bullets   = isset( $detail_block['bullets'] ) ? $detail_block['bullets'] : '';
 		$section_image = isset( $detail_block['image_id'] ) ? absint( $detail_block['image_id'] ) : 0;
 		$bullet_lines  = array_filter( array_map( 'trim', preg_split( '/\r\n|\r|\n/', (string) $raw_bullets ) ) );
 		$image_html    = $section_image ? wp_get_attachment_image( $section_image, 'large', false, [ 'class' => 'adswth-product-details-custom-image img-fluid' ] ) : '';
-		$block_classes = [
-			'adswth-product-details-custom-section',
-			0 === $block_index % 2 ? 'adswth-product-details-custom-section--odd' : 'adswth-product-details-custom-section--even',
-		];
 
 		if ( ! $section_title && empty( $bullet_lines ) && ! $image_html ) {
 			continue;
 		}
 		?>
-		<div class="<?php echo esc_attr( implode( ' ', $block_classes ) ); ?>">
+		<div class="adswth-product-details-custom-section">
 			<div class="adswth-product-details-custom-content">
 				<?php if ( $section_title ) : ?>
 					<h3 class="adswth-product-details-custom-title"><?php echo esc_html( $section_title ); ?></h3>
