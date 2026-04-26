@@ -138,6 +138,144 @@ function adswth_woocommerce_get_script_data(  $params, $handle ){
 }
 add_filter( 'woocommerce_get_script_data', 'adswth_woocommerce_get_script_data', 10, 2);
 
+if ( ! function_exists( 'adswth_add_product_details_metabox' ) ) {
+	/**
+	 * Register custom Product Details metabox fields.
+	 */
+	function adswth_add_product_details_metabox() {
+		add_meta_box(
+			'adswth-product-details-section',
+			__( 'Product Details Section', 'davinciwoo' ),
+			'adswth_render_product_details_metabox',
+			'product',
+			'normal',
+			'default'
+		);
+	}
+}
+add_action( 'add_meta_boxes_product', 'adswth_add_product_details_metabox' );
+
+if ( ! function_exists( 'adswth_render_product_details_metabox' ) ) {
+	/**
+	 * Render Product Details custom fields on product edit screen.
+	 *
+	 * @param WP_Post $post Current post object.
+	 */
+	function adswth_render_product_details_metabox( $post ) {
+		$title    = get_post_meta( $post->ID, '_adswth_product_details_section_title', true );
+		$bullets  = get_post_meta( $post->ID, '_adswth_product_details_bullets', true );
+		$image_id = absint( get_post_meta( $post->ID, '_adswth_product_details_image_id', true ) );
+		$image    = $image_id ? wp_get_attachment_image_src( $image_id, 'medium' ) : false;
+
+		wp_nonce_field( 'adswth_save_product_details_metabox', 'adswth_product_details_nonce' );
+		?>
+		<p>
+			<label for="adswth_product_details_section_title"><strong><?php esc_html_e( 'Section title', 'davinciwoo' ); ?></strong></label>
+			<input class="widefat" type="text" id="adswth_product_details_section_title" name="adswth_product_details_section_title" value="<?php echo esc_attr( $title ); ?>" />
+		</p>
+		<p>
+			<label for="adswth_product_details_bullets"><strong><?php esc_html_e( 'Bullet points', 'davinciwoo' ); ?></strong></label>
+			<textarea class="widefat" rows="6" id="adswth_product_details_bullets" name="adswth_product_details_bullets" placeholder="<?php esc_attr_e( "Add one bullet point per line", 'davinciwoo' ); ?>"><?php echo esc_textarea( $bullets ); ?></textarea>
+		</p>
+		<p>
+			<label><strong><?php esc_html_e( 'Section image', 'davinciwoo' ); ?></strong></label>
+		</p>
+		<div class="adswth-product-details-image-field">
+			<input type="hidden" id="adswth_product_details_image_id" name="adswth_product_details_image_id" value="<?php echo esc_attr( $image_id ); ?>" />
+			<div class="adswth-product-details-image-preview" style="margin-bottom:10px;">
+				<?php if ( $image ) : ?>
+					<img src="<?php echo esc_url( $image[0] ); ?>" alt="" style="max-width:220px;height:auto;" />
+				<?php endif; ?>
+			</div>
+			<button type="button" class="button adswth-product-details-upload"><?php esc_html_e( 'Choose image', 'davinciwoo' ); ?></button>
+			<button type="button" class="button adswth-product-details-remove" <?php echo $image_id ? '' : 'style="display:none;"'; ?>><?php esc_html_e( 'Remove image', 'davinciwoo' ); ?></button>
+		</div>
+		<script>
+			jQuery(function($){
+				var frame;
+				var container = $('.adswth-product-details-image-field');
+				container.on('click', '.adswth-product-details-upload', function(e){
+					e.preventDefault();
+					if (frame) {
+						frame.open();
+						return;
+					}
+					frame = wp.media({
+						title: '<?php echo esc_js( __( 'Select section image', 'davinciwoo' ) ); ?>',
+						button: { text: '<?php echo esc_js( __( 'Use this image', 'davinciwoo' ) ); ?>' },
+						multiple: false
+					});
+					frame.on('select', function(){
+						var attachment = frame.state().get('selection').first().toJSON();
+						container.find('#adswth_product_details_image_id').val(attachment.id);
+						container.find('.adswth-product-details-image-preview').html('<img src="' + attachment.url + '" alt="" style="max-width:220px;height:auto;" />');
+						container.find('.adswth-product-details-remove').show();
+					});
+					frame.open();
+				});
+				container.on('click', '.adswth-product-details-remove', function(e){
+					e.preventDefault();
+					container.find('#adswth_product_details_image_id').val('');
+					container.find('.adswth-product-details-image-preview').empty();
+					$(this).hide();
+				});
+			});
+		</script>
+		<?php
+	}
+}
+
+if ( ! function_exists( 'adswth_product_details_admin_assets' ) ) {
+	/**
+	 * Load media library only on product edit screens.
+	 *
+	 * @param string $hook Hook suffix.
+	 */
+	function adswth_product_details_admin_assets( $hook ) {
+		if ( ! in_array( $hook, [ 'post.php', 'post-new.php' ], true ) ) {
+			return;
+		}
+
+		$screen = get_current_screen();
+		if ( ! $screen || 'product' !== $screen->post_type ) {
+			return;
+		}
+
+		wp_enqueue_media();
+	}
+}
+add_action( 'admin_enqueue_scripts', 'adswth_product_details_admin_assets' );
+
+if ( ! function_exists( 'adswth_save_product_details_metabox' ) ) {
+	/**
+	 * Save Product Details custom fields.
+	 *
+	 * @param int $post_id Product ID.
+	 */
+	function adswth_save_product_details_metabox( $post_id ) {
+		if ( ! isset( $_POST['adswth_product_details_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['adswth_product_details_nonce'] ) ), 'adswth_save_product_details_metabox' ) ) {
+			return;
+		}
+
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+
+		$title   = isset( $_POST['adswth_product_details_section_title'] ) ? sanitize_text_field( wp_unslash( $_POST['adswth_product_details_section_title'] ) ) : '';
+		$bullets = isset( $_POST['adswth_product_details_bullets'] ) ? sanitize_textarea_field( wp_unslash( $_POST['adswth_product_details_bullets'] ) ) : '';
+		$image   = isset( $_POST['adswth_product_details_image_id'] ) ? absint( wp_unslash( $_POST['adswth_product_details_image_id'] ) ) : 0;
+
+		update_post_meta( $post_id, '_adswth_product_details_section_title', $title );
+		update_post_meta( $post_id, '_adswth_product_details_bullets', $bullets );
+		update_post_meta( $post_id, '_adswth_product_details_image_id', $image );
+	}
+}
+add_action( 'save_post_product', 'adswth_save_product_details_metabox' );
+
 if ( ! function_exists( 'adswth_get_review_countries_with_flags' ) ) {
 	/**
 	 * Get countries list that have available flag images.
