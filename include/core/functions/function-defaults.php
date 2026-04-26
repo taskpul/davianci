@@ -326,6 +326,7 @@ if( ! function_exists( 'adswth_defaults' ) ){
             'blog_banner_single_link' => home_url( '/' ),
             'blog_subscribe_block_show' => 0,
             'blog_subscribe_code' => adswth_blog_get_template_field( 'subscribe-form-default' ),
+            'blog_fluentcrm_webhook_url' => '',
             'blog_subscribe_background_color' => '#F1F1F1',
 
             'blog_footer_view' => 0,
