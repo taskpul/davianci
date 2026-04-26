@@ -205,6 +205,11 @@ All custom CSS should be added to the style.css of a Child Theme.
 	align-items: center;
 	gap: 32px;
 	margin-top: 32px;
+	padding: 16px 0;
+}
+
+.adswth-product-details-custom-section:nth-of-type(even) {
+	flex-direction: row-reverse;
 }
 
 .adswth-product-details-custom-content {
@@ -224,6 +229,10 @@ All custom CSS should be added to the style.css of a Child Theme.
 	margin-bottom: 10px;
 }
 
+.adswth-product-details-custom-bullets li:last-child {
+	margin-bottom: 0;
+}
+
 .adswth-product-details-custom-media {
 	flex: 1 1 320px;
 	text-align: center;
@@ -233,4 +242,10 @@ All custom CSS should be added to the style.css of a Child Theme.
 	max-width: 100%;
 	height: auto;
 	display: inline-block;
+}
+
+@media (max-width: 767px) {
+	.adswth-product-details-custom-section:nth-of-type(even) {
+		flex-direction: row;
+	}
 }
