@@ -4,25 +4,10 @@ require ADSW_THEME_PATH . '/blog/blog-functions.php';
 
 function adswth_blog_scripts() {
 
-    if( is_blog() || is_blog_search() ){
+    $is_front_subscribe_enabled = is_front_page() && adswth_option( 'subscribe_block_show' );
 
-        wp_enqueue_style( 'adswth-css-blog', ADSW_THEME_URL . '/blog/assets/css/style' . ADSW_THEME_MIN . '.css', [ 'davinciwoo-style' ], ADSW_THEME_VERSION, 'all' );
-
-
-        wp_enqueue_script( 'adswth-js-blog', ADSW_THEME_URL .'/blog/assets/js/blog' . ADSW_THEME_MIN . '.js', [ 'jquery' ], ADSW_THEME_VERSION, true );
-        wp_enqueue_script( 'adswth-js-search-post', ADSW_THEME_URL .'/blog/assets/js/search-post' . ADSW_THEME_MIN . '.js', [ 'jquery', 'davinciwoo-js-handlebars', 'adswth-js-blog' ], ADSW_THEME_VERSION, true );
-        wp_enqueue_script( 'adswth-js-match-height', ADSW_THEME_URL .'/blog/assets/js/jquery.matchHeight.js', [ 'jquery', 'adswth-js-blog' ], ADSW_THEME_VERSION, true );
+    if ( is_blog() || is_blog_search() || $is_front_subscribe_enabled ) {
         wp_enqueue_script( 'adswth-js-blog-subscribe', ADSW_THEME_URL . '/blog/assets/js/blog-subscribe.js', [ 'jquery' ], ADSW_THEME_VERSION, true );
-
-        // Add variables to scripts
-        wp_localize_script( 'adswth-js-blog', 'adswthBlogVars',
-            [
-                'ajaxurl' => admin_url( 'admin-ajax.php' ),
-                'user' => [
-                    'can_edit_pages' => current_user_can( 'edit_pages' ),
-                ]
-            ]
-        );
 
         wp_localize_script( 'adswth-js-blog-subscribe', 'adswthBlogSubscribeVars',
             [
@@ -33,6 +18,25 @@ function adswth_blog_scripts() {
                     'unavailable' => __( 'Subscription is currently unavailable. Please try again later.', 'davinciwoo' ),
                     'success' => __( 'Thanks for subscribing', 'davinciwoo' ),
                 ],
+            ]
+        );
+    }
+
+    if( is_blog() || is_blog_search() ){
+
+        wp_enqueue_style( 'adswth-css-blog', ADSW_THEME_URL . '/blog/assets/css/style' . ADSW_THEME_MIN . '.css', [ 'davinciwoo-style' ], ADSW_THEME_VERSION, 'all' );
+
+
+        wp_enqueue_script( 'adswth-js-blog', ADSW_THEME_URL .'/blog/assets/js/blog' . ADSW_THEME_MIN . '.js', [ 'jquery' ], ADSW_THEME_VERSION, true );
+        wp_enqueue_script( 'adswth-js-search-post', ADSW_THEME_URL .'/blog/assets/js/search-post' . ADSW_THEME_MIN . '.js', [ 'jquery', 'davinciwoo-js-handlebars', 'adswth-js-blog' ], ADSW_THEME_VERSION, true );
+        wp_enqueue_script( 'adswth-js-match-height', ADSW_THEME_URL .'/blog/assets/js/jquery.matchHeight.js', [ 'jquery', 'adswth-js-blog' ], ADSW_THEME_VERSION, true );
+        // Add variables to scripts
+        wp_localize_script( 'adswth-js-blog', 'adswthBlogVars',
+            [
+                'ajaxurl' => admin_url( 'admin-ajax.php' ),
+                'user' => [
+                    'can_edit_pages' => current_user_can( 'edit_pages' ),
+                ]
             ]
         );
 

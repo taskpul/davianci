@@ -16,14 +16,14 @@
         };
     }
 
-    $(document).on('submit', '.adswth-blog-subscribe-form', function(event) {
+    $(document).on('submit', '.adswth-blog-subscribe-form, #mc-embedded-subscribe-form', function(event) {
         event.preventDefault();
 
         var vars = getVars();
         var $form = $(this);
         var $email = $form.find('input[name="EMAIL"]');
         var $message = $form.find('.adapsubmit');
-        var $button = $form.find('button[type="submit"]');
+        var $button = $form.find('button[type="submit"], input[type="submit"]');
         var email = $.trim($email.val());
 
         if (!email || email.indexOf('@') === -1) {
