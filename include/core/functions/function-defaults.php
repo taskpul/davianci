@@ -250,6 +250,9 @@ if( ! function_exists( 'adswth_defaults' ) ){
 			'product_page_buyer_protection_show' => 1,
 
 			'product_page_product_details_show' => 1,
+			'product_page_details_title' => '',
+			'product_page_details_bullets' => '',
+			'product_page_details_image' => '',
 			'product_page_item_specifics_show' => 1,
 			'product_page_shipping_show' => 1,
 			'product_page_shipping_content' => adswth_get_template_field( 'product-page-default-shipping-content' ),
