@@ -31,7 +31,7 @@ function adswth_blog_scripts() {
                 'i18n' => [
                     'invalidEmail' => __( 'Please enter a valid email address.', 'davinciwoo' ),
                     'unavailable' => __( 'Subscription is currently unavailable. Please try again later.', 'davinciwoo' ),
-                    'success' => __( 'Thanks for subscribing.', 'davinciwoo' ),
+                    'success' => __( 'Thanks for subscribing', 'davinciwoo' ),
                 ],
             ]
         );

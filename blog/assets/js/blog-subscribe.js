@@ -11,7 +11,7 @@
             i18n: {
                 invalidEmail: 'Please enter a valid email address.',
                 unavailable: 'Subscription is currently unavailable. Please try again later.',
-                success: 'Thanks for subscribing.',
+                success: 'Thanks for subscribing',
             }
         };
     }
