@@ -38,11 +38,14 @@ if ( $product->is_in_stock() ) :
 
         <?php do_action( 'woocommerce_before_add_to_cart_button' ); ?>
 
+        <?php do_action( 'woocommerce_before_add_to_cart_quantity' ); ?>
+
+        <input type="hidden" name="quantity" value="<?php echo esc_attr( $product->get_min_purchase_quantity() ); ?>" />
+
         <?php do_action( 'woocommerce_after_add_to_cart_quantity' ); ?>
 
             <div class="woocommerce-add-to-cart-group">
                 <div class="single_add_to_cart_button-group">
-                    <input type="hidden" name="quantity" value="1" />
                     <button
                             data-button-text="<?php echo __( 'View cart', 'davinciwoo' )?>"
                             data-after-title-text="<?php echo __( 'has been added to your cart', 'davinciwoo' )?>"
