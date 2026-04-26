@@ -162,7 +162,7 @@ function adswth_blog_subscribe() {
     }
 
     wp_send_json_success( [
-        'message' => __( 'Thanks for subscribing.', 'davinciwoo' ),
+        'message' => __( 'Thanks for subscribing', 'davinciwoo' ),
     ] );
 }
 add_action( 'wp_ajax_adswth_blog_subscribe', 'adswth_blog_subscribe' );

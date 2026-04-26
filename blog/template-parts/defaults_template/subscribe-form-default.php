@@ -8,9 +8,10 @@
                 <label for="mce-EMAIL"><?php _e( 'Please enter your email', 'davinciwoo' ); ?></label>
                 <div class="submiter">
                     <button type="submit" class="btn btn-blog btn-secondary"><?php _e( 'Subscribe', 'davinciwoo' ); ?></button>
-                    <span class="adapsubmit" aria-live="polite"></span>
+                    <span class="submit-icon" aria-hidden="true"></span>
                 </div>
             </div>
+            <span class="adapsubmit" aria-live="polite"></span>
         </form>
     </div>
 </div>
