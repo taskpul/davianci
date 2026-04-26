@@ -202,24 +202,18 @@ All custom CSS should be added to the style.css of a Child Theme.
 .adswth-product-details-custom-section {
 	display: flex;
 	flex-wrap: wrap;
-	align-items: stretch;
+	align-items: center;
 	gap: 32px;
 	margin-top: 32px;
-	padding: 24px;
-	border: 1px solid #ececec;
-	border-radius: 10px;
-	background-color: #fff;
+	padding: 16px 0;
 }
 
-.adswth-product-details-custom-section--even {
+.adswth-product-details-custom-section:nth-of-type(even) {
 	flex-direction: row-reverse;
 }
 
 .adswth-product-details-custom-content {
 	flex: 1 1 320px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
 }
 
 .adswth-product-details-custom-title {
@@ -241,9 +235,7 @@ All custom CSS should be added to the style.css of a Child Theme.
 
 .adswth-product-details-custom-media {
 	flex: 1 1 320px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	text-align: center;
 }
 
 .adswth-product-details-custom-image {
@@ -253,19 +245,7 @@ All custom CSS should be added to the style.css of a Child Theme.
 }
 
 @media (max-width: 767px) {
-	.adswth-product-details-custom-section {
-		flex-direction: column;
-		gap: 16px;
-		padding: 16px;
-		margin-top: 20px;
-	}
-
-	.adswth-product-details-custom-section--even {
-		flex-direction: column;
-	}
-
-	.adswth-product-details-custom-media {
-		padding-top: 8px;
-		border-top: 1px solid #f0f0f0;
+	.adswth-product-details-custom-section:nth-of-type(even) {
+		flex-direction: row;
 	}
 }
