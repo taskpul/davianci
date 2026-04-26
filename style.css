@@ -198,3 +198,54 @@ All custom CSS should be added to the style.css of a Child Theme.
 .woocommerce-Reviews form.comment-form .comment-form-country select {
 	width: 100%;
 }
+
+.adswth-product-details-layout {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 40px;
+}
+
+.adswth-product-details-layout__content {
+	flex: 1 1 58%;
+}
+
+.adswth-product-details-layout__title {
+	margin-bottom: 18px;
+	font-weight: 700;
+}
+
+.adswth-product-details-layout__list {
+	list-style: square;
+	padding-left: 22px;
+	margin: 0 0 20px;
+}
+
+.adswth-product-details-layout__list li {
+	margin-bottom: 10px;
+}
+
+.adswth-product-details-layout__description > *:last-child {
+	margin-bottom: 0;
+}
+
+.adswth-product-details-layout__image {
+	flex: 1 1 42%;
+	max-width: 42%;
+}
+
+.adswth-product-details-layout__image img {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+@media (max-width: 767px) {
+	.adswth-product-details-layout {
+		flex-direction: column;
+	}
+
+	.adswth-product-details-layout__image {
+		max-width: 100%;
+	}
+}

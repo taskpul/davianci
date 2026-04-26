@@ -382,6 +382,55 @@
 	'priority'  => 240,
 ] );
 
+\adswth\adsOptions::add_field( 'option', [
+	'type'      => 'text',
+	'settings'  => 'product_page_details_title',
+	'section'   => 'product-page',
+	'label'     => __( 'Product details title', 'davinciwoo' ),
+	'default'   => adswth_defaults( 'product_page_details_title' ),
+	'priority'  => 241,
+	'required'  => [
+		[
+			'setting'  => 'product_page_product_details_show',
+			'operator' => '==',
+			'value'    => 1,
+		],
+	],
+] );
+
+\adswth\adsOptions::add_field( 'option', [
+	'type'        => 'textarea',
+	'settings'    => 'product_page_details_bullets',
+	'section'     => 'product-page',
+	'label'       => __( 'Product details bullet points', 'davinciwoo' ),
+	'description' => __( 'Add one bullet point per line.', 'davinciwoo' ),
+	'default'     => adswth_defaults( 'product_page_details_bullets' ),
+	'priority'    => 242,
+	'required'    => [
+		[
+			'setting'  => 'product_page_product_details_show',
+			'operator' => '==',
+			'value'    => 1,
+		],
+	],
+] );
+
+\adswth\adsOptions::add_field( 'option', [
+	'type'      => 'image',
+	'settings'  => 'product_page_details_image',
+	'section'   => 'product-page',
+	'label'     => __( 'Product details image', 'davinciwoo' ),
+	'default'   => adswth_defaults( 'product_page_details_image' ),
+	'priority'  => 243,
+	'required'  => [
+		[
+			'setting'  => 'product_page_product_details_show',
+			'operator' => '==',
+			'value'    => 1,
+		],
+	],
+] );
+
 \adswth\adsOptions::add_field( 'option',  [
 	'type'      => 'checkbox',
 	'settings'  => 'product_page_item_specifics_show',
