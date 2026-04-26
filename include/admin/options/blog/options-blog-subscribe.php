@@ -20,6 +20,24 @@
 ] );
 
 \adswth\adsOptions::add_field( 'option', [
+    'type'        => 'url',
+    'settings'    => 'blog_fluentcrm_webhook_url',
+    'label'       => esc_attr__( 'FluentCRM webhook URL', 'davinciwoo' ),
+    'description' => esc_attr__( 'Add the FluentCRM webhook URL used by the subscribe form.', 'davinciwoo' ),
+    'section'     => 'blog_subscribe',
+    'default'     => adswth_defaults( 'blog_fluentcrm_webhook_url' ),
+    'required'    => [
+        [
+            'setting'  => 'blog_subscribe_block_show',
+            'operator' => '==',
+            'value'    => 1,
+        ]
+    ],
+    'priority'    => 20,
+    'transport'   => 'postMessage',
+] );
+
+\adswth\adsOptions::add_field( 'option', [
     'type'        => 'code',
     'settings'    => 'blog_subscribe_code',
     'label'       => esc_attr__( 'Subscribe Form Code', 'textdomain' ),
@@ -36,7 +54,7 @@
             'value'    => 1,
         ]
     ],
-    'priority'    => 20,
+    'priority'    => 30,
     'transport'   => 'postMessage',
 ] );
 
@@ -59,7 +77,7 @@
             'value'    => 1,
         ]
     ],
-    'priority'    => 30,
+    'priority'    => 40,
     'transport'   => 'auto',
 ]);
 

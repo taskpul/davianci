@@ -12,6 +12,7 @@ function adswth_blog_scripts() {
         wp_enqueue_script( 'adswth-js-blog', ADSW_THEME_URL .'/blog/assets/js/blog' . ADSW_THEME_MIN . '.js', [ 'jquery' ], ADSW_THEME_VERSION, true );
         wp_enqueue_script( 'adswth-js-search-post', ADSW_THEME_URL .'/blog/assets/js/search-post' . ADSW_THEME_MIN . '.js', [ 'jquery', 'davinciwoo-js-handlebars', 'adswth-js-blog' ], ADSW_THEME_VERSION, true );
         wp_enqueue_script( 'adswth-js-match-height', ADSW_THEME_URL .'/blog/assets/js/jquery.matchHeight.js', [ 'jquery', 'adswth-js-blog' ], ADSW_THEME_VERSION, true );
+        wp_enqueue_script( 'adswth-js-blog-subscribe', ADSW_THEME_URL . '/blog/assets/js/blog-subscribe.js', [ 'jquery' ], ADSW_THEME_VERSION, true );
 
         // Add variables to scripts
         wp_localize_script( 'adswth-js-blog', 'adswthBlogVars',
@@ -20,6 +21,18 @@ function adswth_blog_scripts() {
                 'user' => [
                     'can_edit_pages' => current_user_can( 'edit_pages' ),
                 ]
+            ]
+        );
+
+        wp_localize_script( 'adswth-js-blog-subscribe', 'adswthBlogSubscribeVars',
+            [
+                'ajaxurl' => admin_url( 'admin-ajax.php' ),
+                'nonce' => wp_create_nonce( 'adswth_blog_subscribe' ),
+                'i18n' => [
+                    'invalidEmail' => __( 'Please enter a valid email address.', 'davinciwoo' ),
+                    'unavailable' => __( 'Subscription is currently unavailable. Please try again later.', 'davinciwoo' ),
+                    'success' => __( 'Thanks for subscribing.', 'davinciwoo' ),
+                ],
             ]
         );
 
@@ -127,4 +140,3 @@ if( is_woocommerce_activated() ) {
     add_action( 'add_meta_boxes', 'adswth_blog_post_metaboxes', 10, 2 );
     add_action( 'save_post', 'adswth_linked_products_save', 10, 3 );
 }
-

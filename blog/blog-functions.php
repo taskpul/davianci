@@ -115,6 +115,59 @@ function adswth_search_post()
 add_action('wp_ajax_adswth_search_post', 'adswth_search_post');
 add_action('wp_ajax_nopriv_adswth_search_post', 'adswth_search_post');
 
+function adswth_blog_subscribe() {
+
+    if ( ! check_ajax_referer( 'adswth_blog_subscribe', 'nonce', false ) ) {
+        wp_send_json_error( [
+            'message' => __( 'Subscription is currently unavailable. Please try again later.', 'davinciwoo' ),
+        ], 400 );
+    }
+
+    $email = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+    if ( empty( $email ) || ! is_email( $email ) ) {
+        wp_send_json_error( [
+            'message' => __( 'Please enter a valid email address.', 'davinciwoo' ),
+        ], 400 );
+    }
+
+    $webhook_url = esc_url_raw( adswth_option( 'blog_fluentcrm_webhook_url' ) );
+    if ( empty( $webhook_url ) || ! wp_http_validate_url( $webhook_url ) ) {
+        wp_send_json_error( [
+            'message' => __( 'Subscription is currently unavailable. Please try again later.', 'davinciwoo' ),
+        ], 400 );
+    }
+
+    $response = wp_remote_post( $webhook_url, [
+        'timeout' => 8,
+        'headers' => [
+            'Content-Type' => 'application/json',
+        ],
+        'body' => wp_json_encode( [
+            'email' => $email,
+            'source' => home_url( add_query_arg( [] ) ),
+        ] ),
+    ] );
+
+    if ( is_wp_error( $response ) ) {
+        wp_send_json_error( [
+            'message' => __( 'Subscription is currently unavailable. Please try again later.', 'davinciwoo' ),
+        ], 503 );
+    }
+
+    $status_code = wp_remote_retrieve_response_code( $response );
+    if ( $status_code < 200 || $status_code >= 300 ) {
+        wp_send_json_error( [
+            'message' => __( 'Subscription is currently unavailable. Please try again later.', 'davinciwoo' ),
+        ], $status_code );
+    }
+
+    wp_send_json_success( [
+        'message' => __( 'Thanks for subscribing.', 'davinciwoo' ),
+    ] );
+}
+add_action( 'wp_ajax_adswth_blog_subscribe', 'adswth_blog_subscribe' );
+add_action( 'wp_ajax_nopriv_adswth_blog_subscribe', 'adswth_blog_subscribe' );
+
 function adswth_blog_loadmore(){
 
     $args = unserialize( base64_decode(stripslashes( $_POST['query'] ) ) );
@@ -241,4 +294,3 @@ function adswth_get_prev_next(){
         );
     }
 };
-
