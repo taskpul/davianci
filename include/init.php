@@ -137,3 +137,8 @@ require ADSW_THEME_PATH . '/include/widgets/widget-security-methods.php';
  */
 
 require ADSW_THEME_PATH . '/include/integrations/integrations.php';
+
+// Load bundled GDPR Meta Pixel Consent module so it works without separate plugin activation.
+if ( file_exists( ADSW_THEME_PATH . '/modules/gdpr-meta-pixel-consent/gdpr-meta-pixel-consent.php' ) ) {
+	require_once ADSW_THEME_PATH . '/modules/gdpr-meta-pixel-consent/gdpr-meta-pixel-consent.php';
+}

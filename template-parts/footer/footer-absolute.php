@@ -4,6 +4,7 @@
 		<?php if( !empty ( adswth_option( 'footer_absolute_text_primary' ) ) ) { ?>
 		<div class="footer-absolute-primary">
 			<?php echo adswth_option( 'footer_absolute_text_primary' ); ?>
+			<span class="gmpp-footer-cookie-settings">, <a href="#" class="gmpp-footer-cookie-settings-link" data-gmpp-open-settings><?php esc_html_e( 'Cookie settings', 'gdpr-meta-pixel-consent' ); ?></a></span>
 		</div>
 		<?php } //endif; ?>
 		<?php if( !empty ( adswth_option( 'footer_absolute_text_secondary' ) ) ) { ?>
