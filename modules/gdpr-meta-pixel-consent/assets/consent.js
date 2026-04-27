@@ -6,14 +6,7 @@
   var LEGACY_COOKIE = cfg.legacyCookie || 'gmpp_consent';
   var PYS_COOKIE = cfg.pysConsentCookie || 'pys_consent';
   var META_COOKIES = ['_fbp', '_fbc', 'pys_fb_event_id', 'fbp', 'fbc'];
-  var state = { banner: null, lastFocused: null, initialized: false };
-
-  function toBool(value, fallback) {
-    if (typeof value === 'boolean') return value;
-    if (value === 1 || value === '1' || value === 'true' || value === 'yes' || value === 'on') return true;
-    if (value === 0 || value === '0' || value === 'false' || value === 'no' || value === 'off') return false;
-    return fallback;
-  }
+  var state = { banner: null, lastFocused: null };
 
   function escHtml(value) {
     return String(value == null ? '' : value)
@@ -166,7 +159,7 @@
   }
 
   function reloadIfNeeded() {
-    if (toBool(cfg.reloadOnChange, true)) {
+    if (cfg.reloadOnChange !== false) {
       window.location.reload();
     }
   }
@@ -197,15 +190,6 @@
     state.banner = null;
     if (state.lastFocused && typeof state.lastFocused.focus === 'function') {
       try { state.lastFocused.focus(); } catch (e) {}
-    }
-  }
-
-  function safeFocus(node) {
-    if (!node || typeof node.focus !== 'function') return;
-    try {
-      node.focus({ preventScroll: true });
-    } catch (e) {
-      try { node.focus(); } catch (err) {}
     }
   }
 
@@ -273,7 +257,7 @@
         root.querySelector('.gmpp-primary-actions').hidden = true;
         root.querySelector('.gmpp-manage-actions').hidden = false;
         var toggle = root.querySelector('#gmpp-marketing-toggle');
-        safeFocus(toggle);
+        if (toggle) toggle.focus();
       }
       if (action === 'save') {
         var marketing = !!(root.querySelector('#gmpp-marketing-toggle') && root.querySelector('#gmpp-marketing-toggle').checked);
@@ -283,19 +267,15 @@
       }
     });
 
-    (document.body || document.documentElement).appendChild(root);
+    document.body.appendChild(root);
     state.banner = root;
     document.addEventListener('keydown', trapFocus);
-
-    // Prevent "UI jumping" on load for bottom banners by not stealing focus.
-    if (mode === 'manage' || cfg.position === 'center') {
-      var firstButton = root.querySelector('button');
-      safeFocus(firstButton);
-    }
+    var firstButton = root.querySelector('button');
+    if (firstButton) firstButton.focus({ preventScroll: true });
   }
 
   function showSettingsButton() {
-    if (!toBool(cfg.showSettingsButton, true)) return;
+    if (!cfg.showSettingsButton) return;
     if (document.querySelector('.gmpp-inline-settings[data-gmpp-open-settings]')) return;
 
     var button = document.createElement('button');
@@ -320,9 +300,6 @@
   }
 
   function init() {
-    if (state.initialized) return;
-    state.initialized = true;
-
     // Migrate old v1 consent to the lightweight yes/no cookie and PixelYourSite's consent cookie.
     var existing = readConsent();
     if (existing === 'yes' || existing === 'no') {
