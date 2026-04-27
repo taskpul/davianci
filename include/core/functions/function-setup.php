@@ -56,7 +56,7 @@ function adswth_setup() {
 add_action( 'after_setup_theme', 'adswth_setup' );
 
 /**
- * Use the classic editor for posts, pages, and products in wp-admin.
+ * Use the classic editor for posts and pages in wp-admin.
  *
  * @param bool   $use_block_editor Whether the block editor should be used.
  * @param string $post_type        Current post type.
@@ -64,7 +64,7 @@ add_action( 'after_setup_theme', 'adswth_setup' );
  * @return bool
  */
 function adswth_use_classic_editor_for_content( $use_block_editor, $post_type ) {
-	if ( in_array( $post_type, [ 'post', 'page', 'product' ], true ) ) {
+	if ( in_array( $post_type, [ 'post', 'page' ], true ) ) {
 		return false;
 	}
 
