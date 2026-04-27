@@ -6,7 +6,7 @@
   var LEGACY_COOKIE = cfg.legacyCookie || 'gmpp_consent';
   var PYS_COOKIE = cfg.pysConsentCookie || 'pys_consent';
   var META_COOKIES = ['_fbp', '_fbc', 'pys_fb_event_id', 'fbp', 'fbc'];
-  var state = { banner: null, lastFocused: null };
+  var state = { banner: null, settingsButton: null, lastFocused: null };
 
   function escHtml(value) {
     return String(value == null ? '' : value)
@@ -227,13 +227,13 @@
         privacy +
         '<div class="gmpp-panel" ' + (mode === 'manage' ? '' : 'hidden') + '>' + makeToggle(marketingChecked) + '</div>' +
         '<div class="gmpp-actions gmpp-primary-actions" ' + (mode === 'manage' ? 'hidden' : '') + '>' +
-          '<button type="button" class="gmpp-btn btn btn-secondary gmpp-btn-secondary" data-gmpp-action="reject">' + escHtml(cfg.rejectAllText || 'Reject all') + '</button>' +
-          '<button type="button" class="gmpp-btn btn gmpp-btn-ghost" data-gmpp-action="manage">' + escHtml(cfg.manageText || 'Manage options') + '</button>' +
-          '<button type="button" class="gmpp-btn btn btn-primary gmpp-btn-primary" data-gmpp-action="accept">' + escHtml(cfg.acceptAllText || 'Accept all') + '</button>' +
+          '<button type="button" class="gmpp-btn gmpp-btn-secondary" data-gmpp-action="reject">' + escHtml(cfg.rejectAllText || 'Reject all') + '</button>' +
+          '<button type="button" class="gmpp-btn gmpp-btn-ghost" data-gmpp-action="manage">' + escHtml(cfg.manageText || 'Manage options') + '</button>' +
+          '<button type="button" class="gmpp-btn gmpp-btn-primary" data-gmpp-action="accept">' + escHtml(cfg.acceptAllText || 'Accept all') + '</button>' +
         '</div>' +
         '<div class="gmpp-actions gmpp-manage-actions" ' + (mode === 'manage' ? '' : 'hidden') + '>' +
-          '<button type="button" class="gmpp-btn btn btn-secondary gmpp-btn-secondary" data-gmpp-action="reject">' + escHtml(cfg.rejectAllText || 'Reject all') + '</button>' +
-          '<button type="button" class="gmpp-btn btn btn-primary gmpp-btn-primary" data-gmpp-action="save">' + escHtml(cfg.saveText || 'Save choices') + '</button>' +
+          '<button type="button" class="gmpp-btn gmpp-btn-secondary" data-gmpp-action="reject">' + escHtml(cfg.rejectAllText || 'Reject all') + '</button>' +
+          '<button type="button" class="gmpp-btn gmpp-btn-primary" data-gmpp-action="save">' + escHtml(cfg.saveText || 'Save choices') + '</button>' +
         '</div>' +
       '</section>';
 
@@ -245,11 +245,13 @@
       if (action === 'accept') {
         writeConsent(true);
         closeBanner();
+        showSettingsButton();
         reloadIfNeeded();
       }
       if (action === 'reject') {
         writeConsent(false);
         closeBanner();
+        showSettingsButton();
         reloadIfNeeded();
       }
       if (action === 'manage') {
@@ -263,6 +265,7 @@
         var marketing = !!(root.querySelector('#gmpp-marketing-toggle') && root.querySelector('#gmpp-marketing-toggle').checked);
         writeConsent(marketing);
         closeBanner();
+        showSettingsButton();
         reloadIfNeeded();
       }
     });
@@ -275,7 +278,14 @@
   }
 
   function showSettingsButton() {
-    return;
+    if (!cfg.showSettingsButton || state.settingsButton) return;
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'gmpp-settings-button';
+    btn.textContent = cfg.settingsButtonText || 'Cookie settings';
+    btn.addEventListener('click', function () { renderBanner('manage'); });
+    document.body.appendChild(btn);
+    state.settingsButton = btn;
   }
 
   function bindInlineButtons() {
@@ -299,8 +309,9 @@
 
     if (!hasChoice()) {
       renderBanner('default');
-    } else if (!hasMarketingConsent()) {
-      revokeRuntimePixel();
+    } else {
+      if (!hasMarketingConsent()) revokeRuntimePixel();
+      showSettingsButton();
     }
   }
 
