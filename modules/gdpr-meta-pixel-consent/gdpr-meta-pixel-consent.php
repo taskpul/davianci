@@ -54,13 +54,9 @@ final class GDPR_Meta_Pixel_Consent_Lite {
         return wp_parse_args($saved, self::defaults());
     }
 
-    private function is_setting_enabled($value): bool {
-        return in_array($value, [1, '1', true, 'true', 'yes', 'on'], true);
-    }
-
     private function enabled(): bool {
         $settings = $this->get_settings();
-        return $this->is_setting_enabled($settings['enabled'] ?? null);
+        return $settings['enabled'] === '1';
     }
 
     private function has_marketing_consent(): bool {
@@ -113,7 +109,7 @@ final class GDPR_Meta_Pixel_Consent_Lite {
 
     public function filter_disable_external_id($disabled): bool {
         $settings = $this->get_settings();
-        if ($this->is_setting_enabled($settings['block_external_id'] ?? null) && $this->should_block_meta()) {
+        if ($settings['block_external_id'] === '1' && $this->should_block_meta()) {
             return true;
         }
         return (bool) $disabled;
@@ -121,7 +117,7 @@ final class GDPR_Meta_Pixel_Consent_Lite {
 
     public function filter_disable_advanced_data($disabled): bool {
         $settings = $this->get_settings();
-        if ($this->is_setting_enabled($settings['block_advanced_data'] ?? null) && $this->should_block_meta()) {
+        if ($settings['block_advanced_data'] === '1' && $this->should_block_meta()) {
             return true;
         }
         return (bool) $disabled;
@@ -307,7 +303,7 @@ final class GDPR_Meta_Pixel_Consent_Lite {
         }
 
         $settings = $this->get_settings();
-        if (!$this->is_setting_enabled($settings['enabled'] ?? null)) {
+        if ($settings['enabled'] !== '1') {
             return;
         }
 
@@ -346,11 +342,11 @@ final class GDPR_Meta_Pixel_Consent_Lite {
             'marketingText' => __('Marketing / Meta Pixel', 'gdpr-meta-pixel-consent'),
             'marketingDescription' => __('Allows PixelYourSite to load Meta/Facebook Pixel for ads measurement, remarketing and audience building.', 'gdpr-meta-pixel-consent'),
             'settingsButtonText' => $settings['settings_button_text'],
-            'showSettingsButton' => $this->is_setting_enabled($settings['show_settings_button'] ?? null),
+            'showSettingsButton' => $settings['show_settings_button'] === '1',
             'position' => $settings['position'],
             'retentionDays' => absint($settings['retention_days']),
             'accentColor' => $settings['accent_color'],
-            'reloadOnChange' => $this->is_setting_enabled($settings['reload_on_change'] ?? null),
+            'reloadOnChange' => $settings['reload_on_change'] === '1',
             'version' => self::VERSION,
         ]);
     }

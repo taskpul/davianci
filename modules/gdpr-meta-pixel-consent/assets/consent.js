@@ -275,24 +275,12 @@
   }
 
   function showSettingsButton() {
-    if (!cfg.showSettingsButton) return;
-    if (document.querySelector('.gmpp-inline-settings[data-gmpp-open-settings]')) return;
-
-    var button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'gmpp-inline-settings';
-    button.setAttribute('data-gmpp-open-settings', '');
-    button.textContent = cfg.settingsButtonText || 'Cookie settings';
-    button.style.position = 'fixed';
-    button.style.left = '16px';
-    button.style.bottom = '16px';
-    button.style.zIndex = '2147482500';
-    document.body.appendChild(button);
+    return;
   }
 
   function bindInlineButtons() {
     document.addEventListener('click', function (e) {
-      var opener = e.target.closest('[data-gmpp-open-settings], .gmpp-footer-cookie-settings-link, .gmpp-inline-settings, a[href="#cookie-settings"], a[href="#cookies"], a[href="#cookie-preferences"]');
+      var opener = e.target.closest('[data-gmpp-open-settings]');
       if (!opener) return;
       e.preventDefault();
       renderBanner('manage');
@@ -308,7 +296,6 @@
     }
 
     bindInlineButtons();
-    showSettingsButton();
 
     if (!hasChoice()) {
       renderBanner('default');
