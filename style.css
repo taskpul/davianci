@@ -196,3 +196,65 @@ All custom CSS should be added to the style.css of a Child Theme.
 .woocommerce-Reviews form.comment-form .comment-form-country select {
 	width: 100%;
 }
+
+/* WooCommerce Checkout Block compatibility: prevent floating-label/input overlap. */
+.wc-block-components-form .wc-block-components-text-input,
+.wc-block-components-form .wc-block-components-combobox,
+.wc-block-components-form .wc-block-components-select {
+	position: relative;
+}
+
+.wc-block-components-form .wc-block-components-text-input input,
+.wc-block-components-form .wc-block-components-combobox .wc-block-components-combobox-control input,
+.wc-block-components-form .wc-block-components-select select {
+	min-height: 52px;
+	height: 52px;
+	padding: 22px 14px 6px;
+	line-height: 1.25;
+}
+
+.wc-block-components-form .wc-block-components-text-input label,
+.wc-block-components-form .wc-block-components-combobox label,
+.wc-block-components-form .wc-block-components-select label {
+	position: absolute;
+	top: 16px;
+	left: 14px;
+	right: 14px;
+	z-index: 2;
+	padding-left: 0;
+	margin: 0;
+	pointer-events: none;
+	line-height: 1.2;
+	transform-origin: left top;
+	transform: translateY(0) scale(1);
+	transition: transform 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+
+.wc-block-components-form .wc-block-components-text-input.is-active label,
+.wc-block-components-form .wc-block-components-text-input:focus-within label,
+.wc-block-components-form .wc-block-components-text-input input:not(:placeholder-shown) + label,
+.wc-block-components-form .wc-block-components-text-input input:-webkit-autofill + label,
+.wc-block-components-form .wc-block-components-combobox.is-active label,
+.wc-block-components-form .wc-block-components-combobox:focus-within label,
+.wc-block-components-form .wc-block-components-select.is-active label,
+.wc-block-components-form .wc-block-components-select:focus-within label,
+.wc-block-components-form .wc-block-components-select select:valid + label {
+	transform: translateY(-10px) scale(0.82);
+}
+
+/* Keep browser autofill readable with floating labels. */
+.wc-block-components-form .wc-block-components-text-input input:-webkit-autofill,
+.wc-block-components-form .wc-block-components-combobox .wc-block-components-combobox-control input:-webkit-autofill {
+	-webkit-text-fill-color: currentColor;
+	transition: background-color 9999s ease-out 0s;
+}
+
+@media (max-width: 767px) {
+	.wc-block-components-form .wc-block-components-text-input input,
+	.wc-block-components-form .wc-block-components-combobox .wc-block-components-combobox-control input,
+	.wc-block-components-form .wc-block-components-select select {
+		min-height: 50px;
+		height: 50px;
+		padding-top: 20px;
+	}
+}
