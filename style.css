@@ -204,18 +204,18 @@ All custom CSS should be added to the style.css of a Child Theme.
 	position: relative;
 }
 
-.wc-block-components-address-form .wc-block-components-text-input input,
-.wc-block-components-address-form .wc-block-components-combobox .wc-block-components-combobox-control input,
-.wc-block-components-address-form .wc-block-components-select select {
+.wc-block-components-form .wc-block-components-text-input input,
+.wc-block-components-form .wc-block-components-combobox .wc-block-components-combobox-control input,
+.wc-block-components-form .wc-block-components-select select {
 	min-height: 52px;
 	height: 52px;
 	padding: 22px 14px 6px;
 	line-height: 1.25;
 }
 
-.wc-block-components-address-form .wc-block-components-text-input label,
-.wc-block-components-address-form .wc-block-components-combobox label,
-.wc-block-components-address-form .wc-block-components-select label {
+.wc-block-components-form .wc-block-components-text-input label,
+.wc-block-components-form .wc-block-components-combobox label,
+.wc-block-components-form .wc-block-components-select label {
 	position: absolute;
 	top: 16px;
 	left: 14px;
@@ -230,34 +230,29 @@ All custom CSS should be added to the style.css of a Child Theme.
 	transition: transform 0.2s ease, color 0.2s ease, opacity 0.2s ease;
 }
 
-.wc-block-components-address-form .wc-block-components-text-input.is-active label,
-.wc-block-components-address-form .wc-block-components-text-input.has-value label,
-.wc-block-components-address-form .wc-block-components-text-input:focus-within label,
-.wc-block-components-address-form .wc-block-components-text-input input:not(:placeholder-shown) ~ label,
-.wc-block-components-address-form .wc-block-components-text-input input:-webkit-autofill ~ label,
-.wc-block-components-address-form .wc-block-components-combobox.is-active label,
-.wc-block-components-address-form .wc-block-components-combobox.has-value label,
-.wc-block-components-address-form .wc-block-components-combobox:focus-within label,
-.wc-block-components-address-form .wc-block-components-combobox input:not(:placeholder-shown) ~ label,
-.wc-block-components-address-form .wc-block-components-combobox input:-webkit-autofill ~ label,
-.wc-block-components-address-form .wc-block-components-select.is-active label,
-.wc-block-components-address-form .wc-block-components-select.has-value label,
-.wc-block-components-address-form .wc-block-components-select:focus-within label,
-.wc-block-components-address-form .wc-block-components-select select:valid ~ label {
+.wc-block-components-form .wc-block-components-text-input.is-active label,
+.wc-block-components-form .wc-block-components-text-input:focus-within label,
+.wc-block-components-form .wc-block-components-text-input input:not(:placeholder-shown) + label,
+.wc-block-components-form .wc-block-components-text-input input:-webkit-autofill + label,
+.wc-block-components-form .wc-block-components-combobox.is-active label,
+.wc-block-components-form .wc-block-components-combobox:focus-within label,
+.wc-block-components-form .wc-block-components-select.is-active label,
+.wc-block-components-form .wc-block-components-select:focus-within label,
+.wc-block-components-form .wc-block-components-select select:valid + label {
 	transform: translateY(-10px) scale(0.82);
 }
 
 /* Keep browser autofill readable with floating labels. */
-.wc-block-components-address-form .wc-block-components-text-input input:-webkit-autofill,
-.wc-block-components-address-form .wc-block-components-combobox .wc-block-components-combobox-control input:-webkit-autofill {
+.wc-block-components-form .wc-block-components-text-input input:-webkit-autofill,
+.wc-block-components-form .wc-block-components-combobox .wc-block-components-combobox-control input:-webkit-autofill {
 	-webkit-text-fill-color: currentColor;
 	transition: background-color 9999s ease-out 0s;
 }
 
 @media (max-width: 767px) {
-	.wc-block-components-address-form .wc-block-components-text-input input,
-	.wc-block-components-address-form .wc-block-components-combobox .wc-block-components-combobox-control input,
-	.wc-block-components-address-form .wc-block-components-select select {
+	.wc-block-components-form .wc-block-components-text-input input,
+	.wc-block-components-form .wc-block-components-combobox .wc-block-components-combobox-control input,
+	.wc-block-components-form .wc-block-components-select select {
 		min-height: 50px;
 		height: 50px;
 		padding-top: 20px;
