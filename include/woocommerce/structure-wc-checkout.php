@@ -240,30 +240,3 @@ function adswth_checkout_fields_layout( $fields ) {
 	return $fields;
 }
 add_filter( 'woocommerce_checkout_fields', 'adswth_checkout_fields_layout' );
-
-/**
- * Normalize phone values before WooCommerce validation.
- *
- * Keeps the optional behavior intact while allowing common
- * German/international formatting characters.
- *
- * @param array $posted Checkout posted data.
- *
- * @return array
- */
-function adswth_normalize_checkout_phone_value( $posted ) {
-	if ( empty( $posted['billing_phone'] ) || ! is_string( $posted['billing_phone'] ) ) {
-		return $posted;
-	}
-
-	$phone = html_entity_decode( $posted['billing_phone'], ENT_QUOTES, 'UTF-8' );
-	$phone = str_replace( [ "\xC2\xA0", "\xE2\x80\xAF", "\xE2\x80\x89" ], ' ', $phone );
-	$phone = preg_replace( '/\s+/u', ' ', trim( $phone ) );
-	$phone = str_replace( [ '−', '–', '—' ], '-', $phone );
-	$phone = preg_replace( '/[^\d\s\#\(\)\-\+\/\.]/u', '', $phone );
-
-	$posted['billing_phone'] = $phone;
-
-	return $posted;
-}
-add_filter( 'woocommerce_checkout_posted_data', 'adswth_normalize_checkout_phone_value', 20 );
